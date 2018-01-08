@@ -1,0 +1,6 @@
+/vendor/
+/homestead/public/adminer.php
+/.idea/
+.idea/*
+/App/database.yml
+/App/Config/*
