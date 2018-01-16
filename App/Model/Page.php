@@ -45,7 +45,7 @@ class Page
         extract($this->globals);
         foreach ($this->blocks as $block)
         {
-            $renderViews[$block->getName()] = $block->render();
+            $renderViews[$block->getBlock()] = $block->render();
         }
         ob_start();
         extract($renderViews);

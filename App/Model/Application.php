@@ -55,8 +55,16 @@ class Application {
         }
 
         // Run the controller instance and the action of the route
+
         $controllerClass = 'App\\Controller\\Controller' .$matchedRoute->module();
-        (new $controllerClass($router, $this->request))->execute($matchedRoute->action());
+        if ($matchedRoute->hasVars())
+        {
+            (new $controllerClass($router, $this->request, $matchedRoute->vars()))->execute($matchedRoute->action());
+        }
+        else
+        {
+            (new $controllerClass($router, $this->request))->execute($matchedRoute->action());
+        }
 
         //construct and return response
         //$this->response->setBody($action)->send();

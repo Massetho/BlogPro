@@ -10,5 +10,6 @@ namespace App\Block;
 class FooterBlock extends BlockAbstract
 {
     protected $view = __DIR__ . '/../View/Template/PublicFooter.php';
-    protected $name = 'footer';
+
+    protected $block = 'footer';
 }

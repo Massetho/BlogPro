@@ -70,11 +70,18 @@ abstract class AbstractManager
         return $collection;
     }
 
-    public function load($id)
+
+    public function dataById($id)
     {
         $idTable = 'id_' . $this->table;
         $statement = 'SELECT * FROM ' . $this->table . ' WHERE ' . $idTable . ' = ' . $id;
         $data = $this->PDO->query($statement);
+        return $data[0];
+    }
+
+    public function load($id)
+    {
+        $data = $this->dataById($id);
         return new $this->entityPath($data);
     }
 

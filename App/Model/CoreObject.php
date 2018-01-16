@@ -16,9 +16,15 @@ abstract class CoreObject
         //$routes = $router->getRoutes();
         foreach ($routes as $route)
         {
+<<<<<<< Updated upstream
             $name=$controller->getControllerName();
             $module = $route->module();
             $action2=$route->action();
+=======
+            $name =$controller->getControllerName();
+            $module = $route->module();
+            $action =$route->action();
+>>>>>>> Stashed changes
 
             if ($route->module() === $name && $route->action() === $action)
             {

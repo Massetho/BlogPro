@@ -18,11 +18,13 @@ abstract class AbstractEntity
 
     public function __construct($data = NULL)
     {
+        $this->getManager();
         if ($data)
         {
             $this->data = $data;
+            if (!empty($data['id']))
+                $this->data = $this->manager->dataById($data['id']);
         }
-        $this->getManager();
     }
 
     public function getManager()
@@ -73,6 +75,7 @@ abstract class AbstractEntity
     {
         $this->manager->save($this);
     }
+
     public function delete($id)
     {
         $this->manager->delete($id);
