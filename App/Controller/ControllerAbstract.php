@@ -10,13 +10,15 @@ abstract class ControllerAbstract extends CoreObject
     protected $page;
     protected $router;
     protected $request;
+    protected $vars;
 
-    public function __construct(Router $router, Request $request)
+    public function __construct(Router $router, Request $request, $vars = [])
     {
         $this->router = $router;
         $this->page = new Page();
         $this->page->addGlobal('router', $router);
         $this->request = $request;
+        $this->vars = $vars;
     }
 
     public function execute($method)
