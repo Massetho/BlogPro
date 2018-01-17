@@ -1,10 +1,12 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: quent
- * Date: 12/10/2017
- * Time: 17:37
+ * @description : Core Application class
+ * @author: Quentin Thomasset
+ * @package: BlogPro
+ * @date: 12/10/2017
+ * @time: 17:37
  */
+
 namespace App\Model;
 use Symfony\Component\Yaml\Yaml;
 
@@ -57,13 +59,12 @@ class Application {
         // Run the controller instance and the action of the route
         $controllerClass = 'App\\Controller\\Controller' .$matchedRoute->module();
         (new $controllerClass($router, $this->request))->execute($matchedRoute->action());
-
-        //construct and return response
-        //$this->response->setBody($action)->send();
     }
+
 
     public function run()
     {
         return $this->getController();
     }
+
 }
