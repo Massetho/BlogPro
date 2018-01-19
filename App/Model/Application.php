@@ -73,7 +73,6 @@ class Application {
 
     }
 
-
     public function run()
     {
         return $this->getController();
