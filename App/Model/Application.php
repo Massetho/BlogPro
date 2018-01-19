@@ -70,7 +70,7 @@ class Application {
 
         //construct and return response
         //$this->response->setBody($action)->send();
-        (new $controllerClass($router, $this->request))->execute($matchedRoute->action());
+
     }
 
     public function run()
