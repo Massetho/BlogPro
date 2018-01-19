@@ -1,10 +1,12 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: quent
- * Date: 12/10/2017
- * Time: 17:37
+ * @description : Core Application class
+ * @author: Quentin Thomasset
+ * @package: BlogPro
+ * @date: 12/10/2017
+ * @time: 17:37
  */
+
 namespace App\Model;
 use Symfony\Component\Yaml\Yaml;
 
@@ -68,10 +70,12 @@ class Application {
 
         //construct and return response
         //$this->response->setBody($action)->send();
+        (new $controllerClass($router, $this->request))->execute($matchedRoute->action());
     }
 
     public function run()
     {
         return $this->getController();
     }
+
 }
