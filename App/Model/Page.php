@@ -1,7 +1,8 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: quent
+ * @description: Page class
+ * @author: Quentin Thomasset
+ * @package: BlogPro
  * Date: 11/11/2017
  * Time: 12:34
  */
@@ -39,13 +40,16 @@ class Page
         return $this;
     }
 
+    /**
+     * @return string view
+     */
     public function render()
     {
         $renderViews = [];
         extract($this->globals);
         foreach ($this->blocks as $block)
         {
-            $renderViews[$block->getName()] = $block->render();
+            $renderViews[$block->getBlock()] = $block->render();
         }
         ob_start();
         extract($renderViews);
