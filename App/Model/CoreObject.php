@@ -11,14 +11,12 @@ abstract class CoreObject
 {
     public function getUrl($controller, $action ='index', $vars = [], $controllerName = '')
     {
-        // TODO : implement this function to get URL from blocks or controllers
         $routes = $controller->getRouter()->getRoutes();
         //$routes = $router->getRoutes();
         if (empty($controllerName))
             $controllerName =$controller->getControllerName();
         foreach ($routes as $route)
         {
-
             if ($route->module() === $controllerName && $route->action() === $action)
             {
 
