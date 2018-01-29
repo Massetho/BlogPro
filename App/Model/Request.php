@@ -5,7 +5,7 @@ class Request
 {
     public function cookieData($key)
     {
-        return isset($_COOKIE[$key]) ? $_COOKIE[$key] : null;
+        return isset($_COOKIE[$key]) ? htmlspecialchars($_COOKIE[$key]) : null;
     }
 
     public function cookieExists($key)
@@ -15,7 +15,7 @@ class Request
 
     public function getData($key)
     {
-        return isset($_GET[$key]) ? $_GET[$key] : null;
+        return isset($_GET[$key]) ? htmlspecialchars($_GET[$key]) : null;
     }
 
     public function getExists($key)
@@ -30,7 +30,7 @@ class Request
 
     public function postData($key)
     {
-        return isset($_POST[$key]) ? $_POST[$key] : null;
+        return isset($_POST[$key]) ? htmlspecialchars($_POST[$key]) : null;
     }
 
     public function postExists($key)
