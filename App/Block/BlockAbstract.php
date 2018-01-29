@@ -14,13 +14,18 @@ abstract class BlockAbstract extends CoreObject
     protected $controller;
     protected $collection = [];
     protected $view; //path to template
-    protected $name = 'content'; //name of the variable where the block will show
+    protected $entity;
+    protected $block = 'content'; //name of the variable where the block will show
 
-    public function __construct($controller)
+    public function __construct($controller, $entity = [])
     {
         if ($controller)
         {
             $this->controller = $controller;
+        }
+        if (!empty($entity))
+        {
+            $this->entity = $entity;
         }
     }
 
@@ -29,9 +34,9 @@ abstract class BlockAbstract extends CoreObject
         return $this->view;
     }
 
-    public function getName()
+    public function getBlock()
     {
-        return $this->name;
+        return $this->block;
     }
 
     public function getCollection()
