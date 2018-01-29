@@ -1,7 +1,8 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: quent
+ * @description : zdzdoizdj
+ * @author : quent
+ * @package : Blogpro
  * Date: 26/10/2017
  * Time: 14:49
  */
@@ -26,6 +27,22 @@ abstract class AbstractManager
         $this->entityPath = 'App\Model\Entity\\'. $this->className;
     }
 
+    //Formating function for SQL requests preparation
+    public function placeholders($text, $count=0, $separator=","){
+        $result = array();
+        if($count > 0){
+            for($x=0; $x<$count; $x++){
+                $result[] = $text;
+            }
+        }
+
+        return implode($separator, $result);
+    }
+
+    /**
+     * @param AbstractEntity $obj
+     * @return mixed
+     */
     public function save(AbstractEntity $obj)
     {
 
@@ -41,10 +58,38 @@ abstract class AbstractManager
         $fields = trim($fields, ","); */
 
         $columns = implode(',', array_keys($obj->getData()));
-        $fields = implode(',', array_values($obj->getData()));
+        //$fields = implode(',', array_values($obj->getData()));
+        $fields = array_values($obj->getData());
+        $question_marks = '(' . $this->placeholders('?', sizeof($obj->getData())) . ')';
 
-        $statement = 'INSERT INTO ' . $this->table .'('. $columns .')' . ' VALUES ('. $fields .') ON DUPLICATE KEY UPDATE';
-        return $this->PDO->query($statement);
+        $update = '';
+        foreach (array_keys($obj->getData()) as $col)
+        {
+            $update .= " $col = VALUES($col),";
+        }
+        $update = trim($update, ",");
+
+        $sql = "INSERT INTO ". $this->table . " (" . $columns . ") 
+                VALUES " . $question_marks . " 
+                ON DUPLICATE KEY UPDATE $update";
+        $fields[3] = 1;
+        var_dump($fields);
+
+        $pdo = $this->PDO->returnPDO();
+        $stmt = $pdo->prepare($sql);
+        var_dump($stmt);
+
+        try {
+            $stmt->execute($fields);
+        } catch (PDOException $e){
+            echo $e->getMessage();
+        }
+        /* var_dump($fields);
+        var_dump($this->pSQL($fields));
+        $statement = 'INSERT INTO ' . $this->table .'('. $this->pSQL($columns) .')' . ' VALUES ('. $this->pSQL($fields) .') ON DUPLICATE KEY UPDATE';
+        //$statement = "INSERT INTO $this->table ($this->pSQL($columns)) VALUES ($this->pSQL($fields)) ON DUPLICATE KEY UPDATE";
+        return $this->PDO->query($statement); */
+        return true;
     }
 
     public function getCollection($orderby = NULL, $sort = 'ASC', $limit = '0')
@@ -70,11 +115,19 @@ abstract class AbstractManager
         return $collection;
     }
 
-    public function load($id)
+    //return a table with entity infos
+    public function dataById($id)
     {
         $idTable = 'id_' . $this->table;
         $statement = 'SELECT * FROM ' . $this->table . ' WHERE ' . $idTable . ' = ' . $id;
         $data = $this->PDO->query($statement);
+        return $data[0];
+    }
+
+    //return an hydrated entity object
+    public function load($id)
+    {
+        $data = $this->dataById($id);
         return new $this->entityPath($data);
     }
 
@@ -82,7 +135,7 @@ abstract class AbstractManager
     {
         $idTable = 'id_' . $this->table;
         $statement = 'DELETE FROM ' . $this->table . ' WHERE '. $idTable .' = ' . $id;
-        return $this->PDO->query($statement);
+        return $this->PDO->deleteQuery($statement);
     }
 
     public function add()
@@ -95,5 +148,11 @@ abstract class AbstractManager
         $statement = 'SELECT * FROM ' . $this->table . ' WHERE ' . $column . ' = ' . $value;
         $data = $this->PDO->query($statement);
         return $data;
+    }
+
+    //ALIASES
+    public function pSQL($field)
+    {
+        return $this->PDO->pSQL($field);
     }
 }

@@ -1,7 +1,8 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: quent
+ * @description : Abstract class for entities
+ * @author: Quentin Thomasset
+ * @package : BlogPro
  * Date: 25/10/2017
  * Time: 16:38
  */
@@ -16,15 +17,24 @@ abstract class AbstractEntity
     protected $manager;
     protected $vars =[];
 
+    /**
+     * AbstractEntity constructor.
+     * @param null $data
+     */
     public function __construct($data = NULL)
     {
-        if ($data)
+        $this->getManager();
+        if ($data && is_array($data))
         {
             $this->data = $data;
+            if (!empty($data['id']))
+                $this->data = $this->manager->dataById($data['id']);
         }
-        $this->getManager();
     }
 
+    /**
+     * GETTERS
+     */
     public function getManager()
     {
         $managerName = str_replace('Entity', 'Manager', static::class);
@@ -32,9 +42,13 @@ abstract class AbstractEntity
         $this->manager = new $managerName;
     }
 
+    public function getData()
+    {
+        return $this->data;
+    }
+
     public function __call($methodName, $arguments)
     {
-        // TODO: Implement __call() method.
         $substr = substr($methodName, 0, 3);
         if ($substr === "set")
         {
@@ -62,30 +76,52 @@ abstract class AbstractEntity
 
     }
 
-    protected function hydrateVars()
+    //DATE MANAGEMENT
+    public function getFormatedDate()
     {
-
-        $this->vars = [];
+        $dayFormatter = new \IntlDateFormatter('fr_FR',\IntlDateFormatter::FULL,
+            NULL,
+            'Europe/Paris',
+            \IntlDateFormatter::GREGORIAN );
+        return $dayFormatter;
     }
+
+    public function getDayInTheMonth($date)
+    {
+        $dayFormatter = $this->getFormatedDate();
+        $dayFormatter->setPattern("d");
+        $date = new \DateTime($date);
+        return $dayFormatter->format($date);
+    }
+
+    public function getFrenchMonthYear($date)
+    {
+        $dayFormatter = $this->getFormatedDate();
+        $dayFormatter->setPattern("MMMM y");
+        $date = new \DateTime($date);
+        return $dayFormatter->format($date);
+    }
+
 
     //ALIASES
     public function save()
     {
         $this->manager->save($this);
     }
+
     public function delete($id)
     {
         $this->manager->delete($id);
     }
 
-    public function load($id)
+    public function dataById($id)
     {
-        $this->data = $this->manager->load($id);
+        $this->data = $this->manager->dataById($id);
     }
 
-    public function getCollection($orderby, $limit, $sort)
+    public function getCollection($orderby = NULL, $sort = 'ASC', $limit = '0')
     {
-        return $this->manager->getCollection($orderby, $limit, $sort);
+        return $this->manager->getCollection($orderby, $sort, $limit);
     }
 
 }

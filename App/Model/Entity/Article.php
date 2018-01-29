@@ -13,6 +13,20 @@ class Article extends AbstractEntity
 {
     public $excerpt;
 
+    public function __construct($data = NULL)
+    {
+        $this->getManager();
+        if ($data && is_array($data))
+        {
+            $this->data = $data;
+            if (!empty($data['id']))
+            {
+                $this->data = $this->manager->dataById($data['id']);
+                $this->getCategory();
+            }
+        }
+    }
+
     public function getExcerpt() {
         if (empty($this->excerpt))
         {
@@ -22,8 +36,17 @@ class Article extends AbstractEntity
         return $this->excerpt;
     }
 
-    protected function hydrateVars()
+    public function getCategory()
     {
-        //$this->vars = [urlencode($this->getTitle()), $this->getId_article()];
+        if ($this->getArticle_category())
+        {
+            $category = new Category();
+            $category->dataById($this->getArticle_category());
+            return $this->setCategory($category->getName());
+        }
+        else
+        {
+            return false;
+        }
     }
 }
