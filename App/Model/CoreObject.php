@@ -9,18 +9,17 @@
 namespace App\Model;
 abstract class CoreObject
 {
-    public function getUrl($controller, $action ='index', $vars = [])
+    public function getUrl($controller, $action ='index', $vars = [], $controllerName = '')
     {
         // TODO : implement this function to get URL from blocks or controllers
         $routes = $controller->getRouter()->getRoutes();
         //$routes = $router->getRoutes();
+        if (empty($controllerName))
+            $controllerName =$controller->getControllerName();
         foreach ($routes as $route)
         {
-            $name=$controller->getControllerName();
-            $module = $route->module();
-            $action2=$route->action();
 
-            if ($route->module() === $name && $route->action() === $action)
+            if ($route->module() === $controllerName && $route->action() === $action)
             {
 
                 $url = $route->url();
@@ -41,4 +40,10 @@ abstract class CoreObject
             }
         }
     }
+
+    public function getFormatedDate()
+    {
+        return date('Y-m-d H:i:s');
+    }
+
 }
