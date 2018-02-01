@@ -49,4 +49,31 @@ class Article extends AbstractEntity
             return false;
         }
     }
+
+    public function getImageArticle()
+    {
+        if (isset($this->data['image']))
+        {
+            $path = _IMG_FILE_ . $this->data['image'];
+            return $path;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public function getThumbnailArticle()
+    {
+        if (isset($this->data['image']))
+        {
+            $path = _THUMBNAIL_FILE_ . $this->data['image'];
+            return $path;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 }

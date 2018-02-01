@@ -106,17 +106,17 @@ abstract class AbstractEntity
     //ALIASES
     public function save()
     {
-        $this->manager->save($this);
+        return $this->manager->save($this);
     }
 
     public function delete($id)
     {
-        $this->manager->delete($id);
+        return $this->manager->delete($id);
     }
 
     public function dataById($id)
     {
-        $this->data = $this->manager->dataById($id);
+        return $this->data = $this->manager->dataById($id);
     }
 
     public function getCollection($orderby = NULL, $sort = 'ASC', $limit = '0')

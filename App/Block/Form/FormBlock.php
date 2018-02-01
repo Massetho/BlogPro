@@ -22,7 +22,7 @@ abstract class FormBlock extends BlockAbstract
     /**
      * FormBlock constructor.
      * @param $controller
-     * @param array $entity
+     * @param object $entity
      */
     public function __construct($controller, $entity)
     {

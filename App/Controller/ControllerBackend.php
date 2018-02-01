@@ -27,7 +27,7 @@ class ControllerBackend extends ControllerAbstract
         if (!(Admin::isAuthenticated()))
         {
             $response = new Response();
-            $response->redirect('https://blogpro.test/admin/');
+            $response->redirect('https://blogpro.test/admin');
         }
     }
 
@@ -38,7 +38,7 @@ class ControllerBackend extends ControllerAbstract
         $page->addBlock(new BackListArticleBlock($this));
         $page->addBlock(new BackHeaderBlock($this));
         $response = new Response();
-        echo $response->setBody($page->render())->send();
+        $response->setBody($page->render())->send();
     }
 
     public function deleteArticle()
@@ -49,5 +49,33 @@ class ControllerBackend extends ControllerAbstract
             $article->delete($this->vars['id']);
         }
         $this->listArticle();
+    }
+
+    public function sessionDestroy()
+    {
+        session_destroy();
+        $response = new Response();
+        $response->redirect('https://blogpro.test');
+    }
+
+    function uploadImage($index = 'image',
+                         $destination = _IMG_FILE_,
+                         $maxsize = 1048576,
+                         $extensions = array('jpg', 'jpeg', 'png'))
+    {
+        //Test1: fichier correctement uploadé
+        if (!isset($_FILES[$index]) OR $_FILES[$index]['error'] > 0) return FALSE;
+        //Test2: taille limite
+        if ($maxsize !== FALSE AND $_FILES[$index]['size'] > $maxsize) return FALSE;
+        //Test3: extension
+        $ext = substr(strrchr($_FILES[$index]['name'],'.'),1);
+        if ($extensions !== FALSE AND !in_array($ext,$extensions)) return FALSE;
+        //Déplacement
+        $cwd = getcwd();
+        $filename = $cwd.$destination.$_FILES[$index]['name'];
+        if (move_uploaded_file($_FILES[$index]['tmp_name'],$filename) === FALSE) return FALSE;
+        //Thumbnail
+        $filenameThumb = $cwd._THUMBNAIL_FILE_.$_FILES[$index]['name'];
+        return $this->imagethumb($filename, $filenameThumb, 560 );
     }
 }

@@ -33,6 +33,10 @@ class ArticleFormBlock extends FormBlock
             'label' => 'Category',
             'name' => 'article_category'
         ]))
+        ->addField(new ImageField([
+            'label' => 'Image | Max size : 1 Mo',
+            'name' => 'image'
+        ]))
         ->addField(new AuthField([
             'name' => 'authForm',
             'value' => $this->uniqid

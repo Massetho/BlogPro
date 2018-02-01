@@ -25,16 +25,21 @@ class ControllerEditArticle extends ControllerBackend
                     'introduction' => $this->request->postData('introduction'),
                     'body' => $this->request->postData('body'),
                     'article_category' => $this->request->postData('article_category'),
-                    'date_created' => $this->getFormatedDate()
+                    'date_created' => $this->getFormatedDate(),
+                    'image' => $this->request->fileName('image')
                 );
                 if (!empty($this->vars['id']))
                     $data['id_article'] = $this->vars['id'];
+
+                if (!$this->uploadImage() || empty($this->request->fileName('image')))
+                    unset($data['image']);
+
                 $article = new Article($data);
                 if ($article->save())
                 {
                     $response = new Response();
                     $response->redirect('https://blogpro.test/admin-dashboard');
-                };
+                }
             }
         }
 
@@ -55,6 +60,7 @@ class ControllerEditArticle extends ControllerBackend
         }
 
         $response = new Response();
-        echo $response->setBody($page->render())->send();
+        $response->setBody($page->render())->send();
     }
+
 }

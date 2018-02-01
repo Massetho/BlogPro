@@ -17,6 +17,9 @@
                     </ul>
                 </li>
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="<?= $this->getUrl($this->getController(), 'sessionDestroy', array(), 'Backend'); ?>">Logout</a></li>
+            </ul>
         </div><!--/.nav-collapse -->
     </div>
 </nav>
