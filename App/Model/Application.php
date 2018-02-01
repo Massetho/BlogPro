@@ -3,9 +3,8 @@
  * @description: Core App Class
  * @author: Quentin Thomasset
  * @package: Blogpro
- * Date: 12/10/2017
- * Time: 17:37
  */
+
 namespace App\Model;
 use Symfony\Component\Yaml\Yaml;
 
@@ -62,6 +61,7 @@ class Application {
         }
 
         // Run the controller instance and the action of the route
+
         $controllerClass = 'App\\Controller\\Controller' .$matchedRoute->module();
         if ($matchedRoute->hasVars())
         {
@@ -71,11 +71,11 @@ class Application {
         {
             (new $controllerClass($router, $this->request))->execute($matchedRoute->action());
         }
-
     }
 
     public function run()
     {
         return $this->getController();
     }
+
 }

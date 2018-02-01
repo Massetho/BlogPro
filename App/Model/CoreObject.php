@@ -17,7 +17,6 @@ abstract class CoreObject
             $controllerName =$controller->getControllerName();
         foreach ($routes as $route)
         {
-
             if ($route->module() === $controllerName && $route->action() === $action)
             {
 
