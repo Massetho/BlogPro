@@ -38,6 +38,11 @@ class Request
         return isset($_POST[$key]);
     }
 
+    public function fileName($key)
+    {
+        return isset($_FILES[$key]) ? htmlspecialchars($_FILES[$key]['name']) : null;
+    }
+
     public function requestURI()
     {
         return $_SERVER['REQUEST_URI'];

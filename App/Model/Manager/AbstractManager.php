@@ -41,24 +41,12 @@ abstract class AbstractManager
 
     /**
      * @param AbstractEntity $obj
-     * @return mixed
+     * @return true
      */
     public function save(AbstractEntity $obj)
     {
 
-        //USE IMPLODE array_keys array_values INSTEAD
-        /* $columns = "";
-        $fields = "";
-        foreach ($obj->getData() as $key => $value)
-        {
-            $columns .= $key . ',';
-            $fields .= $value . ',';
-        }
-        $columns = trim($columns, ",");
-        $fields = trim($fields, ","); */
-
         $columns = implode(',', array_keys($obj->getData()));
-        //$fields = implode(',', array_values($obj->getData()));
         $fields = array_values($obj->getData());
         $question_marks = '(' . $this->placeholders('?', sizeof($obj->getData())) . ')';
 
@@ -72,23 +60,15 @@ abstract class AbstractManager
         $sql = "INSERT INTO ". $this->table . " (" . $columns . ") 
                 VALUES " . $question_marks . " 
                 ON DUPLICATE KEY UPDATE $update";
-        $fields[3] = 1;
-        var_dump($fields);
 
         $pdo = $this->PDO->returnPDO();
         $stmt = $pdo->prepare($sql);
-        var_dump($stmt);
 
         try {
             $stmt->execute($fields);
         } catch (PDOException $e){
             echo $e->getMessage();
         }
-        /* var_dump($fields);
-        var_dump($this->pSQL($fields));
-        $statement = 'INSERT INTO ' . $this->table .'('. $this->pSQL($columns) .')' . ' VALUES ('. $this->pSQL($fields) .') ON DUPLICATE KEY UPDATE';
-        //$statement = "INSERT INTO $this->table ($this->pSQL($columns)) VALUES ($this->pSQL($fields)) ON DUPLICATE KEY UPDATE";
-        return $this->PDO->query($statement); */
         return true;
     }
 
@@ -136,11 +116,6 @@ abstract class AbstractManager
         $idTable = 'id_' . $this->table;
         $statement = 'DELETE FROM ' . $this->table . ' WHERE '. $idTable .' = ' . $id;
         return $this->PDO->deleteQuery($statement);
-    }
-
-    public function add()
-    {
-
     }
 
     public function get($column, $value)

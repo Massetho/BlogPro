@@ -12,9 +12,5 @@ class LoginBlock extends BlockAbstract
 
     protected $view = __DIR__ . '/../View/Template/Login.php'; //path to template
 
-    public function login()
-    {
-
-    }
 }
 

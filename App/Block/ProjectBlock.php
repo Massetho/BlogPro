@@ -24,11 +24,4 @@ class ProjectBlock extends BlockAbstract
         $collector = new Project();
         $this->collection = $collector->getCollection('date_start', 'DESC', 5);
     }
-
-
-    public function show()
-    {
-
-    }
-
 }

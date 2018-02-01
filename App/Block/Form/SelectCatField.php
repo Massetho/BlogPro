@@ -38,7 +38,7 @@ class SelectCatField extends Field
             }
         }
 
-        return $widget .= '</select>';
+        return $widget .= '</select><div class="clearfix"></div>';
     }
 
 }

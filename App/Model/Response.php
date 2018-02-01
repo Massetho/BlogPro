@@ -35,7 +35,8 @@ class Response
 
     public function send()
     {
-       return $this->body;
+       echo $this->body;
+       exit();
     }
 
     public function setCookie($name, $value = '', $expire = 0, $path = null, $domain = null, $secure = false, $httpOnly = true)

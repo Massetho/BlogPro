@@ -45,7 +45,7 @@ class ControllerLogin extends ControllerAbstract {
             }, ['login']);
 
             $response = new Response();
-            echo $response->setBody($page->render())->send();
+            $response->setBody($page->render())->send();
         }
     }
 }
