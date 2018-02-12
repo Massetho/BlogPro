@@ -28,9 +28,16 @@ class Request
         return $_SERVER['REQUEST_METHOD'];
     }
 
-    public function postData($key)
+    public function postData($key, $filter = NULL)
     {
-        return isset($_POST[$key]) ? htmlspecialchars($_POST[$key]) : null;
+        if ($filter === NULL)
+        {
+            return isset($_POST[$key]) ? htmlspecialchars($_POST[$key]) : null;
+        }
+        else
+        {
+            return filter_input(INPUT_POST, $key, $filter);
+        }
     }
 
     public function postExists($key)

@@ -23,6 +23,7 @@
         <link href="css/responsive.css" rel="stylesheet" type="text/css">
 
         <!-- font-awesome -->
+        <link href="css/fonts.css" rel="stylesheet" type="text/css">
         <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
         <!-- font-awesome -->
@@ -41,9 +42,10 @@
         <!-- header -->
 
         <!-- main -->
-        <main role="main-home-wrapper" class="container">
+        <main role="main-inner-wrapper" class="container">
             <div class="row">
-                <?= $content; ?>
+                <?php if(!empty($content)) echo $content; ?>
+                <?php if(!empty($form)) echo $form; ?>
             </div>
         </main>
         <!-- main -->

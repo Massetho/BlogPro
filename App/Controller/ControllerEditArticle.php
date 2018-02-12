@@ -31,11 +31,18 @@ class ControllerEditArticle extends ControllerBackend
                 if (!empty($this->vars['id']))
                     $data['id_article'] = $this->vars['id'];
 
-                if (!$this->uploadImage() || empty($this->request->fileName('image')))
+                if (empty($this->request->fileName('image')))
                     unset($data['image']);
 
                 $article = new Article($data);
-                if ($article->save())
+                $article->save();
+
+                if (empty($this->vars['id']))
+                    $data['id_article'] = $article->lastId();
+
+                $folder = _IMG_ARTICLE_FILE_.$data['id_article'];
+
+                if (($folder !== _IMG_ARTICLE_FILE_) && ($this->uploadImage($folder)))
                 {
                     $response = new Response();
                     $response->redirect('https://blogpro.test/admin-dashboard');

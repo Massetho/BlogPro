@@ -50,12 +50,28 @@ class Article extends AbstractEntity
         }
     }
 
-    public function getImageArticle()
+    public function getImageArticle($key = NULL)
     {
-        if (isset($this->data['image']))
+        if (isset($this->data['id'])) $id = $this->data['id'];
+        if (isset($this->data['id_article'])) $id = $this->data['id_article'];
+        if($id)
         {
-            $path = _IMG_FILE_ . $this->data['image'];
-            return $path;
+            $path = _HOME_DIR_._IMG_FILE_ . _IMG_ARTICLE_FILE_ .$id.'/*.{jpg,jpeg,gif,png}';
+            $files = glob($path,GLOB_BRACE);
+            $images = [];
+            foreach ($files as $image)
+            {
+                $image = str_replace(_HOME_DIR_, '', $image);
+                $images[] = $image;
+            }
+            if ($key !== NULL && is_int($key))
+            {
+                return $images[$key];
+            }
+            else
+            {
+                return $images;
+            }
         }
         else
         {
@@ -63,12 +79,28 @@ class Article extends AbstractEntity
         }
     }
 
-    public function getThumbnailArticle()
+    public function getThumbnailArticle($key = NULL)
     {
-        if (isset($this->data['image']))
+        if (isset($this->data['id'])) $id = $this->data['id'];
+        if (isset($this->data['id_article'])) $id = $this->data['id_article'];
+        if($id)
         {
-            $path = _THUMBNAIL_FILE_ . $this->data['image'];
-            return $path;
+            $path = _HOME_DIR_._IMG_FILE_ . _IMG_ARTICLE_FILE_ .$id.'/thumbnail/*.{jpg,jpeg,gif,png}';
+            $files = glob($path,GLOB_BRACE);
+            $images = [];
+            foreach ($files as $image)
+            {
+                $image = str_replace(_HOME_DIR_, '', $image);
+                $images[] = $image;
+            }
+            if ($key !== NULL && is_int($key))
+            {
+                return $images[$key];
+            }
+            else
+            {
+                return $images;
+            }
         }
         else
         {

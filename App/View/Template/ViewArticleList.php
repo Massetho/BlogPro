@@ -12,7 +12,7 @@
                 <li>
                     <figure class="effect-oscar">
 
-                        <img src="<?= $article->getThumbnailArticle(); ?>" alt="" class="img-responsive"/>
+                        <img src="<?= $article->getThumbnailArticle(0); ?>" alt="" class="img-responsive"/>
 
                         <figcaption>
 

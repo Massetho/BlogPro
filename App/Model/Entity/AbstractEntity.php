@@ -124,4 +124,9 @@ abstract class AbstractEntity
         return $this->manager->getCollection($orderby, $sort, $limit);
     }
 
+    public function lastId()
+    {
+        return $this->manager->lastId();
+    }
+
 }

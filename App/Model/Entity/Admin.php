@@ -32,7 +32,6 @@ class Admin extends AbstractEntity
         {
             throw new \InvalidArgumentException('La valeur spécifiée à la méthode User::setAuthenticated() doit être un boolean');
         }
-
         $_SESSION['auth'] = $authenticated;
     }
 

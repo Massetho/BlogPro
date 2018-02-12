@@ -14,7 +14,7 @@
 
         <figure>
 
-            <img src="<?php if (!empty($this->entity->getImage())) { echo $this->entity->getImageArticle(); } else { echo 'images/blog-images/blog-details-image.jpg'; } ?>" alt="" class="img-responsive"/>
+            <img src="<?php if ($this->entity->getImageArticle() == TRUE) { echo $this->entity->getImageArticle(0); } else { echo 'images/blog-images/blog-details-image.jpg'; } ?>" alt="" class="img-responsive"/>
 
         </figure>
 
