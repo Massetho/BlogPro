@@ -66,6 +66,7 @@
         <script src="js/jquery.min.js" type="text/javascript"></script>
 
         <!-- custom -->
+        <script src="js/controls/formControl.js" type="text/javascript"></script>
 
         <script src="js/nav.js" type="text/javascript"></script>
 

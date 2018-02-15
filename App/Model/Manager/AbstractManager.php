@@ -61,7 +61,7 @@ abstract class AbstractManager
                 VALUES " . $question_marks . " 
                 ON DUPLICATE KEY UPDATE $update";
 
-        $pdo = $this->PDO->returnPDO();
+        $pdo = $this->PDO->getPDO();
         $stmt = $pdo->prepare($sql);
 
         try {
@@ -106,10 +106,11 @@ abstract class AbstractManager
     //return last id
     public function lastId()
     {
-        $idTable = 'id_' . $this->table;
+        return $this->PDO->lastInsertId();
+        /*$idTable = 'id_' . $this->table;
         $statement = 'SELECT MAX('. $idTable .') FROM ' . $this->table;
         $data = $this->PDO->query($statement);
-        return $data[0]["MAX($idTable)"];
+        return $data[0]["MAX($idTable)"];*/
     }
 
 

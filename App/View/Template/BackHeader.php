@@ -7,15 +7,8 @@
             <ul class="nav navbar-nav">
                 <li><a href="<?= $this->getUrl($this->getController(), 'listArticle', array(), 'Backend'); ?>">Dashboard</a></li>
                 <li><a href="/admin-create-article">New Article</a></li>
-                <li><a href="#contact">Contact Form</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Edit Pages<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                    </ul>
-                </li>
+                <li><a href="<?= $this->getUrl($this->getController(), 'listCategory', array(), 'Category'); ?>">Categories</a></li>
+                <li><a href="/admin-create-category">New Category</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="<?= $this->getUrl($this->getController(), 'sessionDestroy', array(), 'Backend'); ?>">Logout</a></li>
