@@ -7,10 +7,19 @@
  */
 namespace App\Model\Entity;
 use \App\Model\Manager\AdminManager;
+use App\Model\Request;
 
 
 class Admin extends AbstractEntity
 {
+    protected $request;
+
+    public function __construct($data = NULL)
+    {
+        parent::__construct($data);
+        $this->request = new Request();
+    }
+
     public function login($mail, $password)
     {
         $auth = $this->manager->get('email', '"'.$mail.'"');
@@ -30,15 +39,15 @@ class Admin extends AbstractEntity
     {
         if (!is_bool($authenticated))
         {
-            throw new \InvalidArgumentException('La valeur spécifiée à la méthode User::setAuthenticated() doit être un boolean');
+            throw new \InvalidArgumentException('Parameter value for User::setAuthenticated() must be a boolean');
         }
-        $_SESSION['auth'] = $authenticated;
+        $this->request->sessionSet('auth', $authenticated);
     }
 
     public static function isAuthenticated()
     {
-        //return isset($_SESSION['auth']) && $_SESSION['auth'] === true;
-        if (isset($_SESSION['auth']) && ($_SESSION['auth'] === true))
+        $request = new Request();
+        if (($request->sessionExists('auth')) && ($request->sessionData('auth') === true))
         {
             return true;
         }
