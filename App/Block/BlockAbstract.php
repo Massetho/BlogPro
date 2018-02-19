@@ -17,13 +17,13 @@ abstract class BlockAbstract extends CoreObject
     protected $entity;
     protected $block = 'content'; //name of the variable where the block will show
 
-    public function __construct($controller, $entity = [])
+    public function __construct($controller, $entity = NULL)
     {
         if ($controller)
         {
             $this->controller = $controller;
         }
-        if (!empty($entity))
+        if ($entity !== NULL)
         {
             $this->entity = $entity;
         }

@@ -58,24 +58,35 @@ class ControllerBackend extends ControllerAbstract
         $response->redirect('https://blogpro.test');
     }
 
-    function uploadImage($index = 'image',
+    function uploadImage($folder = '',
+                         $index = 'image',
                          $destination = _IMG_FILE_,
                          $maxsize = 1048576,
                          $extensions = array('jpg', 'jpeg', 'png'))
     {
-        //Test1: fichier correctement uploadé
+        //Test1: file exist ?
         if (!isset($_FILES[$index]) OR $_FILES[$index]['error'] > 0) return FALSE;
-        //Test2: taille limite
+        //Test2: under max size ?
         if ($maxsize !== FALSE AND $_FILES[$index]['size'] > $maxsize) return FALSE;
-        //Test3: extension
+        //Test3: good extension ?
         $ext = substr(strrchr($_FILES[$index]['name'],'.'),1);
         if ($extensions !== FALSE AND !in_array($ext,$extensions)) return FALSE;
-        //Déplacement
+        //Test4: is image ?
+        if (exif_imagetype($_FILES[$index]['tmp_name']) === FALSE) return FALSE;
+
+        //Directory management
         $cwd = getcwd();
-        $filename = $cwd.$destination.$_FILES[$index]['name'];
+        $imagefile = $cwd.$destination.$folder;
+        $thumbfile = $imagefile.'/thumbnail/';
+        if (!file_exists($thumbfile))
+        {
+            mkdir($thumbfile, 0755, true);
+        }
+
+        $filename = $imagefile.'/'.$_FILES[$index]['name'];
         if (move_uploaded_file($_FILES[$index]['tmp_name'],$filename) === FALSE) return FALSE;
         //Thumbnail
-        $filenameThumb = $cwd._THUMBNAIL_FILE_.$_FILES[$index]['name'];
+        $filenameThumb = $thumbfile.$_FILES[$index]['name'];
         return $this->imagethumb($filename, $filenameThumb, 560 );
     }
 }

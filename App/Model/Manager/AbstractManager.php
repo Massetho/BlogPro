@@ -41,7 +41,7 @@ abstract class AbstractManager
 
     /**
      * @param AbstractEntity $obj
-     * @return true
+     * @return int
      */
     public function save(AbstractEntity $obj)
     {
@@ -57,19 +57,18 @@ abstract class AbstractManager
         }
         $update = trim($update, ",");
 
-        $sql = "INSERT INTO ". $this->table . " (" . $columns . ") 
+        $sql = "INSERT INTO ". $this->table . " (" . $columns . ")
                 VALUES " . $question_marks . " 
                 ON DUPLICATE KEY UPDATE $update";
 
-        $pdo = $this->PDO->returnPDO();
+        $pdo = $this->PDO->getPDO();
         $stmt = $pdo->prepare($sql);
 
         try {
-            $stmt->execute($fields);
+            return $stmt->execute($fields);
         } catch (PDOException $e){
             echo $e->getMessage();
         }
-        return true;
     }
 
     public function getCollection($orderby = NULL, $sort = 'ASC', $limit = '0')
@@ -103,6 +102,17 @@ abstract class AbstractManager
         $data = $this->PDO->query($statement);
         return $data[0];
     }
+
+    //return last id
+    public function lastId()
+    {
+        return $this->PDO->lastInsertId();
+        /*$idTable = 'id_' . $this->table;
+        $statement = 'SELECT MAX('. $idTable .') FROM ' . $this->table;
+        $data = $this->PDO->query($statement);
+        return $data[0]["MAX($idTable)"];*/
+    }
+
 
     //return an hydrated entity object
     public function load($id)

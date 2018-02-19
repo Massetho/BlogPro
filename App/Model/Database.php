@@ -25,7 +25,7 @@ class Database {
                 $this->$key = $value;
             }
         }
-        $this->getPDO();
+        $this->initPDO();
     }
 
     public static function getInstance() {
@@ -38,7 +38,7 @@ class Database {
     }
 
 
-    private function getPDO() {
+    private function initPDO() {
         if (is_null($this->pdo)) {
             $dsn = $this->dbDriver . ':dbname=' . $this->dbName . ';host=' . $this->dbHost . ';port=' . $this->dbPort;
             $pdo = new PDO($dsn, $this->dbUser, $this->dbPassword);
@@ -52,7 +52,7 @@ class Database {
     return $this->pdo->quote($field);
     }
 
-    public function returnPDO()
+    public function getPDO()
     {
         return $this->pdo;
     }

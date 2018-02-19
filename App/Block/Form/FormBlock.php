@@ -24,7 +24,7 @@ abstract class FormBlock extends BlockAbstract
      * @param $controller
      * @param object $entity
      */
-    public function __construct($controller, $entity)
+    public function __construct($controller, $entity = NULL)
     {
         parent::__construct($controller, $entity);
         $this->uniqid = uniqid();
@@ -36,7 +36,7 @@ abstract class FormBlock extends BlockAbstract
     {
         $attr = 'get' . ucfirst($field->getName()); // We retrieve the field's name
 
-        if (!empty($this->entity->$attr()))
+        if (!is_null($this->entity) && !empty($this->entity->$attr()))
         {
             $field->setValue($this->entity->$attr()); // We set the field's value if there is one
         }

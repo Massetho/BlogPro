@@ -21,21 +21,28 @@ class ControllerEditArticle extends ControllerBackend
             {
 
                 $data = array(
-                    'title' => $this->request->postData('title'),
-                    'introduction' => $this->request->postData('introduction'),
-                    'body' => $this->request->postData('body'),
-                    'article_category' => $this->request->postData('article_category'),
+                    'title' => $this->request->postData('title', FILTER_SANITIZE_STRING),
+                    'introduction' => $this->request->postData('introduction', FILTER_SANITIZE_STRING),
+                    'body' => $this->request->postData('body', FILTER_SANITIZE_STRING),
+                    'article_category' => $this->request->postData('article_category', FILTER_SANITIZE_NUMBER_INT),
                     'date_created' => $this->getFormatedDate(),
                     'image' => $this->request->fileName('image')
                 );
                 if (!empty($this->vars['id']))
                     $data['id_article'] = $this->vars['id'];
 
-                if (!$this->uploadImage() || empty($this->request->fileName('image')))
+                if (empty($this->request->fileName('image')))
                     unset($data['image']);
 
                 $article = new Article($data);
-                if ($article->save())
+                $article->save();
+
+                if (empty($this->vars['id']))
+                    $data['id_article'] = $article->lastId();
+
+                $folder = _IMG_ARTICLE_FILE_.$data['id_article'];
+
+                if (($folder !== _IMG_ARTICLE_FILE_) && ($this->uploadImage($folder)))
                 {
                     $response = new Response();
                     $response->redirect('https://blogpro.test/admin-dashboard');
