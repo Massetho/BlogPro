@@ -9,7 +9,6 @@
 
 namespace App;
 use App\Model\Application;
-
 session_start();
 
 require_once __DIR__ . '/../../vendor/autoload.php';

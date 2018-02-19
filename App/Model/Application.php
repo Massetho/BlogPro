@@ -1,10 +1,8 @@
 <?php
 /**
- * @description : Core Application class
+ * @description: Core App Class
  * @author: Quentin Thomasset
- * @package: BlogPro
- * @date: 12/10/2017
- * @time: 17:37
+ * @package: Blogpro
  */
 
 namespace App\Model;
@@ -14,12 +12,18 @@ class Application {
     protected $request;
     protected $response;
 
+    /**
+     * Application constructor.
+     */
     public function __construct()
     {
         $this->request = new Request();
         $this->response = new Response();
     }
 
+    /**
+     * function getController, used to run the correct controller
+     */
     public function getController()
     {
         $router = new Router;
@@ -67,10 +71,6 @@ class Application {
         {
             (new $controllerClass($router, $this->request))->execute($matchedRoute->action());
         }
-
-        //construct and return response
-        //$this->response->setBody($action)->send();
-
     }
 
     public function run()

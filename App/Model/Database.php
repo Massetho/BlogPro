@@ -14,6 +14,9 @@ class Database {
     private $pdo;
     private static $_instance;
 
+    /**
+     * Database constructor.
+     */
     private function __construct() {
         $config = Yaml::parse(file_get_contents(__DIR__ . '/../Config/database.yml'));
         $dbConfig = $config['database'];
@@ -44,10 +47,24 @@ class Database {
         }
     }
 
+    public function pSQL($field)
+    {
+    return $this->pdo->quote($field);
+    }
+
+    public function returnPDO()
+    {
+        return $this->pdo;
+    }
+
     public function query($statement) {
-        $request = $this->pdo->query($statement);
-        $datas = $request->fetchAll(PDO::FETCH_ASSOC);
-        return $datas;
+    $request = $this->pdo->query($statement);
+    $datas = $request->fetchAll(PDO::FETCH_ASSOC);
+    return $datas;
+    }
+
+    public function deleteQuery($statement) {
+        return $this->pdo->query($statement);
     }
 
     public function objectQuery($statement) {

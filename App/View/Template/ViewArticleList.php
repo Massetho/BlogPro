@@ -12,7 +12,7 @@
                 <li>
                     <figure class="effect-oscar">
 
-                        <img src="images/home-images/image-4.jpg" alt="" class="img-responsive"/>
+                        <img src="<?= $article->getThumbnailArticle(); ?>" alt="" class="img-responsive"/>
 
                         <figcaption>
 
@@ -20,7 +20,7 @@
 
                             <p><?= $article->getExcerpt(); ?></p>
 
-                            <a href="<?= $this->getUrl($this->getController(), 'show', array(urlencode($article->getTitle()), $article->getId_article())); ?>">View more</a>
+                            <a href="<?= $this->getUrl($this->getController(), 'show', array(urlencode($article->getTitle()), $article->getId_article()), 'Article'); ?>">View more</a>
 
                         </figcaption>
 
