@@ -63,7 +63,7 @@ abstract class ControllerAbstract extends CoreObject
     //Special CSRF security
     public function authFormVerify()
     {
-        if ($this->request->postData('authForm') === $_SESSION['authForm'])
+        if ($this->request->postExists('authForm') && ($this->request->postData('authForm') === $this->request->sessionData('authForm')))
         {
             return true;
         }

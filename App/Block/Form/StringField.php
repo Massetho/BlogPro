@@ -32,6 +32,11 @@ class StringField extends Field
             $widget .= ' maxlength="'.$this->getMaxLength().'"';
         }
 
+        if (!empty($this->getOnblur()))
+        {
+            $widget .= ' onblur="'.$this->getOnblur().'"';
+        }
+
         return $widget .= ' />';
     }
 

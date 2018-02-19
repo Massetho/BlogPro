@@ -1,31 +1,39 @@
-            	<section class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
-                	<article role="pge-title-content">
-                    	<header>
-                        	<h2><span>avana</span> A Brand new Agency.</h2>
-                        </header>
-                        <p>This is the story of Avana, a minimal Bootstrap template for creative agency.</p>
-                    </article>
-                </section>
-                <section class="col-xs-12 col-sm-6 col-md-6 col-lg-6 grid">
-                    <ul class="grid-lod effect-2" id="grid">
-                <?php foreach ($this->getCollection() as $article) : ?>
-                <li>
-                    <figure class="effect-oscar">
+                    <section class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
+                        <article role="pge-title-content">
+                            <header>
+                                <h2><span>avana</span> A Brand new Agency.</h2>
+                            </header>
+                            <p>This is the story of Avana, a minimal Bootstrap template for creative agency.</p>
+                        </article>
+                    </section>
 
-                        <img src="<?= $article->getThumbnailArticle(0); ?>" alt="" class="img-responsive"/>
+                            <?php foreach ($this->getCollection() as $article) : ?>
+                    <section class="col-xs-12 col-sm-6 col-md-6 col-lg-6 grid">
+                        <ul class="grid-lod effect-2" id="grid">
+                                <li>
+                                    <section class="blog-content">
+                                    <figure class="effect-oscar">
+                                        <div class="post-date">
+                                            <span><?= $article->getDayInTheMonth($article->getDate_created()) ?></span> <?= $article->getFrenchMonthYear($article->getDate_created()) ?>
 
-                        <figcaption>
+                                        </div>
 
-                            <h2><?= $article->getTitle(); ?></h2>
+                                        <img src="<?= $article->getThumbnailArticle(0); ?>" alt="" class="img-responsive"/>
 
-                            <p><?= $article->getExcerpt(); ?></p>
+                                        <figcaption>
 
-                            <a href="<?= $this->getUrl($this->getController(), 'show', array(urlencode($article->getTitle()), $article->getId_article()), 'Article'); ?>">View more</a>
+                                            <h2><?= $article->getTitle(); ?></h2>
 
-                        </figcaption>
+                                            <p><?= $article->getExcerpt(); ?></p>
 
-                    </figure>
-                </li>
-                <?php endforeach; ?>
-                </ul>
-                </section>
+                                            <a href="<?= $this->getUrl($this->getController(), 'show', array(urlencode($article->getTitle()), $article->getId_article()), 'Article'); ?>">View more</a>
+
+                                        </figcaption>
+
+                                    </figure>
+                                    </section>
+                                </li>
+
+                        </ul>
+                    </section>
+                            <?php endforeach; ?>

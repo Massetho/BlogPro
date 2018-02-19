@@ -45,6 +45,21 @@ class Request
         return isset($_POST[$key]);
     }
 
+    public function sessionExists($key)
+    {
+        return isset($_SESSION[$key]);
+    }
+
+    public function sessionData($key)
+    {
+        return isset($_SESSION[$key]) ? htmlspecialchars($_SESSION[$key]) : null;
+    }
+    public function sessionSet($key = NULL, $value = NULL)
+    {
+        if ($key && $value)
+            $_SESSION[$key] = $value;
+    }
+
     public function fileName($key)
     {
         return isset($_FILES[$key]) ? htmlspecialchars($_FILES[$key]['name']) : null;
