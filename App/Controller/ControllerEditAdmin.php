@@ -21,7 +21,7 @@ class ControllerEditAdmin extends ControllerBackend
             if ($this->authFormVerify())
             {
 
-                if ($this->request->postData('password') === $this->request->postData('repeatPassword'))
+                if (($this->request->postData('password') !== '') && ($this->request->postData('password') === $this->request->postData('repeatPassword')))
                 {
                     $password = $this->request->postData('password');
                     $password = password_hash($password, PASSWORD_DEFAULT);
@@ -29,7 +29,7 @@ class ControllerEditAdmin extends ControllerBackend
                     'firstname' => $this->request->postData('firstname', FILTER_SANITIZE_STRING),
                     'lastname' => $this->request->postData('lastname', FILTER_SANITIZE_STRING),
                     'email' => $this->request->postData('email', FILTER_SANITIZE_EMAIL),
-                    'phone' => $this->request->postData('introduction', FILTER_SANITIZE_NUMBER_INT),
+                    'phone' => $this->request->postData('phone', FILTER_SANITIZE_NUMBER_INT),
                     'date_created' => $this->getFormatedDate(),
                     'password' => $password
                     );

@@ -56,7 +56,7 @@ class Application {
             {
                 // If no route matches, run 404 error function
                 $this->response->redirect404();
-                die;
+                exit;
             }
         }
 

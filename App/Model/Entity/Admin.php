@@ -18,6 +18,10 @@ class Admin extends AbstractEntity
     {
         parent::__construct($data);
         $this->request = new Request();
+        if (!empty($data['id']))
+        {
+            $this->data = $this->manager->dataById($data['id']);
+        }
     }
 
     public function login($mail, $password)
@@ -41,17 +45,18 @@ class Admin extends AbstractEntity
         {
             throw new \InvalidArgumentException('Parameter value for User::setAuthenticated() must be a boolean');
         }
-        $this->request->sessionSet('auth', $authenticated);
+        $this->request->sessionSet('authAdmin', $authenticated);
     }
 
     public static function isAuthenticated()
     {
         $request = new Request();
-        if (($request->sessionExists('auth')) && ($request->sessionData('auth') === true))
+        if (($request->sessionExists('authAdmin')) && ($request->sessionData('authAdmin') === true))
         {
             return true;
         }
-        else{
+        else
+        {
             return false;
         }
     }

@@ -28,7 +28,6 @@ abstract class ControllerAbstract extends CoreObject
     {
         $this->router = $router;
         $this->page = new Page();
-        $this->page->addGlobal('router', $router);
         $this->request = $request;
         $this->vars = $vars;
     }
@@ -43,21 +42,8 @@ abstract class ControllerAbstract extends CoreObject
         {
             throw new \RuntimeException('L\'action "'.$method.'" n\'est pas définie sur ce module');
         }
-        //$this->preDispatch($method);
 
         return $this->$method();
-
-        //$this->postDispatch($method);
-    }
-
-    protected function preDispatch($action)
-    {
-        return $this;
-    }
-
-    protected function postDispatch($action)
-    {
-        return $this;
     }
 
     //Special CSRF security

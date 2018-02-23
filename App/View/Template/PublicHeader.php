@@ -1,7 +1,7 @@
 
 <!-- logo -->
     <h1>
-        <a href="<?= $this->getUrl($this->getController(), 'index', array(), 'About'); ?>" title="avana LLC"><img src="images/logo.png" title="avana LLC" alt="avana LLC"/></a>
+        <a href="<?= $this->getUrl($this->getController(), 'index', array(), 'About'); ?>" title="avana LLC"><img src="images/logo.png" title="Quentin Thomasset" alt="Quentin Thomasset"/></a>
     </h1>
 
 <!-- logo -->

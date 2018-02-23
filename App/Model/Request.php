@@ -52,7 +52,7 @@ class Request
 
     public function sessionData($key)
     {
-        return isset($_SESSION[$key]) ? htmlspecialchars($_SESSION[$key]) : null;
+        return isset($_SESSION[$key]) ? $_SESSION[$key] : null;
     }
     public function sessionSet($key = NULL, $value = NULL)
     {
