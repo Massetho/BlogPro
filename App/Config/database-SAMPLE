@@ -1,0 +1,7 @@
+database:
+    dbDriver: mysql
+    dbHost: 192.168.0.10
+    dbPort: 400
+    dbName: blogpro
+    dbUser: user
+    dbPassword:

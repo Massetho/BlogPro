@@ -1,6 +1,7 @@
 /vendor/
 /homestead/public/adminer.php
+/homestead/public/php
+/homestead/public/files
 /.idea/
 .idea/*
-/App/database.yml
-/App/Config/*
+/App/Config/database.yml

@@ -1,8 +1,7 @@
 {
-    "name": "massetho/myblog",
+    "name": "massetho/blogpro",
     "description": "Framework of my personnal blog",
     "require": {
-        "twig/twig": "^2.4",
         "symfony/yaml":"^3.3.9"
     },
 

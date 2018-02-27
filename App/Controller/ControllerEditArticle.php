@@ -53,7 +53,6 @@ class ControllerEditArticle extends ControllerBackend
         $page = $this->page;
         $page->setLayout( __DIR__ . '/../View/Layout/backLayout.php');
 
-        //if ($this->request->postExists(''))
         //Creating blocks
 
         $page->addBlock(new BackHeaderBlock($this));

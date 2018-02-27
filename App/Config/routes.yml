@@ -1,0 +1,64 @@
+routes:
+   url: "/"
+   module: About
+   action: index
+route3:
+   url: "/article-(.+)-([0-9]+)"
+   module: Article
+   action: show
+   vars: "slug,id"
+route6:
+  url: "/Portfolio"
+  module: Portfolio
+  action: index
+route5:
+   url: "/admin"
+   module: Login
+   action: login
+route2:
+   url: "/article"
+   module: Article
+   action: index
+route7:
+  url: "/admin-edit-article-([0-9]+)"
+  module: EditArticle
+  action: index
+  vars: "id"
+route8:
+  url: "/admin-dashboard"
+  module: Backend
+  action: listArticle
+route9:
+  url: "/admin-create-article"
+  module: EditArticle
+  action: index
+route10:
+  url: "/admin-delete-article-([0-9]+)"
+  module: Backend
+  action: deleteArticle
+  vars: "id"
+route11:
+  url: "/admin-session-destroy"
+  module: Backend
+  action: sessionDestroy
+route12:
+  url: "/admin-category"
+  module: Category
+  action: listCategory
+route13:
+  url: "/admin-edit-category-([0-9]+)"
+  module: EditCategory
+  action: index
+  vars: "id"
+route14:
+  url: "/admin-create-category"
+  module: EditCategory
+  action: index
+route15:
+   url: "/contact"
+   module: About
+   action: contact
+route16:
+  url: "/admin-settings"
+  module: EditAdmin
+  action: index

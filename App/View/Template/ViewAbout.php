@@ -4,11 +4,11 @@
 
         <header>
 
-            <h2><span>We Do</span> What we love to do.</h2>
+            <h2><span>I Do</span> What I love to do.</h2>
 
         </header>
 
-        <p>Over 40,000 customers use our themes to power their websites and we love them.</p>
+        <p>I am passionnate about the positive impact web developpment makes in our lives.</p>
 
     </article>
 
@@ -46,9 +46,9 @@
 
             <figcaption>
 
-                <h3>John Doe</h3>
+                <h3>Team Work</h3>
 
-                <h5>The designer</h5>
+                <h5>UML, continuous integration</h5>
 
             </figcaption>
 
@@ -64,9 +64,7 @@
 
             <figcaption>
 
-                <h3>kristy Roan</h3>
-
-                <h5>The Manager</h5>
+                <h3>Me</h3>
 
             </figcaption>
 
@@ -82,9 +80,9 @@
 
             <figcaption>
 
-                <h3>Jason takas</h3>
+                <h3>Developpment</h3>
 
-                <h5>The Founder</h5>
+                <h5>PHP 7</h5>
 
             </figcaption>
 

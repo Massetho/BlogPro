@@ -4,7 +4,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-            <h4 class="modal-title" id="myModalLabel">Login to site.com</h4>
+            <h4 class="modal-title" id="myModalLabel">Login to BlogPro</h4>
         </div>
         <div class="modal-body">
             <div class="row">
@@ -22,14 +22,8 @@
                                 <span class="help-block"></span>
                             </div>
                             <div id="loginErrorMsg" class="alert alert-error hide">Wrong mail or password</div>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="remember" id="remember"> Remember login
-                                </label>
-                                <p class="help-block">(if this is a private computer)</p>
-                            </div>
+
                             <button type="submit" class="btn btn-success btn-block">Login</button>
-                            <a href="/forgot/" class="btn btn-default btn-block">Help to login</a>
                         </form>
                     </div>
                 </div>

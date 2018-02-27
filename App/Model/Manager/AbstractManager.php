@@ -106,11 +106,10 @@ abstract class AbstractManager
     //return last id
     public function lastId()
     {
-        return $this->PDO->lastInsertId();
-        /*$idTable = 'id_' . $this->table;
+        $idTable = 'id_' . $this->table;
         $statement = 'SELECT MAX('. $idTable .') FROM ' . $this->table;
         $data = $this->PDO->query($statement);
-        return $data[0]["MAX($idTable)"];*/
+        return $data[0]["MAX($idTable)"];
     }
 
 

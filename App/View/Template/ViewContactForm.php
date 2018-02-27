@@ -3,11 +3,11 @@
 
     <header>
 
-        <h2>Leave me a message.</h2>
+        <h2>Please, leave me a message ;)</h2>
 
     </header>
     <div id="message"></div>
-    <form method="post" action="" name="cform" id="cform" enctype="multipart/form-data" onsubmit="return verifForm(this)">
+    <form method="post" action="<?= $this->getUrl($this->getController(), 'contact', array()); ?>" name="cform" id="cform" enctype="multipart/form-data" onsubmit="return verifForm(this)">
 
         <?= $this->createView(); ?>
         <input name="submit" type="submit" value="Send">
