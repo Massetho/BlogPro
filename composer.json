@@ -2,7 +2,8 @@
     "name": "massetho/blogpro",
     "description": "Framework of my personnal blog",
     "require": {
-        "symfony/yaml":"^3.3.9"
+        "symfony/yaml":"^3.3.9",
+        "sendgrid/sendgrid": "~6.0"
     },
 
     "require-dev": {

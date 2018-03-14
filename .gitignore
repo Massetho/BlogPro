@@ -5,3 +5,5 @@
 /.idea/
 .idea/*
 /App/Config/database.yml
+/App/Config/config.php
+sendgrid.env

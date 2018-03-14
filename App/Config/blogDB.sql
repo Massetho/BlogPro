@@ -13,6 +13,7 @@ CREATE TABLE admin (
   email VARCHAR(255) NOT NULL,
   phone INT(10) NOT NULL,
   password VARCHAR(255) NOT NULL,
+  access_level VARCHAR(45) NOT NULL DEFAULT "commentator",
   PRIMARY KEY (id_admin),
   UNIQUE (email),
   UNIQUE (phone),
@@ -47,3 +48,18 @@ CREATE TABLE article (
 
 INSERT INTO article (id_article, article_category, title, introduction, body, date_created)
 VALUES (1, 1, 'Bonjour Monde!', 'Voici mon premier article pour mon site personnel développé entièrement en PHP orienté objet.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sollicitudin faucibus quam, nec fringilla dui commodo sit amet. Pellentesque vehicula turpis vitae dolor imperdiet, sed cursus ex pharetra. Vivamus varius ligula leo, at pretium nisl convallis vel. Cras ut tortor euismod, malesuada velit sit amet, semper nisl. Suspendisse euismod nisi in neque sollicitudin, et facilisis nibh semper. Pellentesque bibendum finibus pretium. In id tristique tellus, vitae cursus eros. Nam aliquam rutrum eros in ultricies.', NOW());
+
+
+CREATE TABLE comment (
+  id_comment INT AUTO_INCREMENT,
+  comment_admin INT,
+  comment_article INT,
+  content VARCHAR(1000),
+  PRIMARY KEY (id_comment),
+  CONSTRAINT fk_comment_admin
+    FOREIGN KEY (comment_admin)
+    REFERENCES admin(id_admin),
+  CONSTRAINT fk_comment_article
+    FOREIGN KEY (comment_article)
+    REFERENCES article(id_article),
+);
