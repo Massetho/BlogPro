@@ -23,6 +23,13 @@ class Response
     public function redirect404()
     {
         Err404::getMsg();
+        exit;
+    }
+
+    public function redirect500()
+    {
+        Err500::getMsg();
+        exit;
     }
 
     public function setBody($content) {

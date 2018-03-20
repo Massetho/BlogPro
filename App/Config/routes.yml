@@ -62,3 +62,21 @@ route16:
   url: "/admin-settings"
   module: EditAdmin
   action: index
+route17:
+  url: "/admin-list-admin"
+  module: EditAdmin
+  action: listAdmin
+route18:
+  url: "/admin-edit-admin-([0-9]+)"
+  module: EditAdmin
+  action: modifyAdminLevel
+  vars: "id"
+route19:
+  url: "/admin-delete-admin-([0-9]+)"
+  module: EditAdmin
+  action: deleteAdmin
+  vars: "id"
+route20:
+  url: "/register"
+  module: Login
+  action: register

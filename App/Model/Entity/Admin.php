@@ -26,18 +26,20 @@ class Admin extends AbstractEntity
 
     public function login($mail, $password)
     {
-        $auth = $this->manager->get('email', '"'.$mail.'"');
+        $auth = $this->getColumn('email', $mail);
 
-        if (password_verify($password, $auth[0]['password']))
+        if (password_verify($password, $auth['password']))
         {
-            $this->setAuthenticated();
-            return true;
+            $this->data = $auth;
+            if ($this->setAuthenticated())
+                return true;
+            else
+                return false;
         }
         else {
             return false;
         }
     }
-
 
     public function setAuthenticated($authenticated = true)
     {
@@ -46,6 +48,20 @@ class Admin extends AbstractEntity
             throw new \InvalidArgumentException('Parameter value for User::setAuthenticated() must be a boolean');
         }
         $this->request->sessionSet('authAdmin', $authenticated);
+
+        if (empty($this->getAccess_level()))
+        {
+            return false;
+        }
+        $this->request->sessionSet('adminLevel', $this->getAccess_level());
+
+        if (empty($this->getId_admin()))
+        {
+            return false;
+        }
+        $this->request->sessionSet('idAdmin', $this->getId_admin());
+
+        return true;
     }
 
     public static function isAuthenticated()
@@ -53,7 +69,11 @@ class Admin extends AbstractEntity
         $request = new Request();
         if (($request->sessionExists('authAdmin')) && ($request->sessionData('authAdmin') === true))
         {
-            return true;
+            if($request->sessionExists('adminLevel')) {
+                return $request->sessionData('adminLevel');
+            }
+            return false;
+
         }
         else
         {

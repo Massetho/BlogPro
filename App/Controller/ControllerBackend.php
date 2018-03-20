@@ -24,7 +24,9 @@ class ControllerBackend extends ControllerAbstract
 
     public function checkAdmin()
     {
-        if (!(Admin::isAuthenticated()))
+        //if (Admin::isAuthenticated() !== _AUTH_ADMIN_)
+        $adm =Admin::isAuthenticated();
+        if ($adm != _AUTH_ADMIN_)
         {
             $response = new Response();
             $response->redirect('https://blogpro.test/admin');

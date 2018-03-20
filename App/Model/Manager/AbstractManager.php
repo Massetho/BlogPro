@@ -129,9 +129,11 @@ abstract class AbstractManager
 
     public function get($column, $value)
     {
-        $statement = 'SELECT * FROM ' . $this->table . ' WHERE ' . $column . ' = ' . $value;
-        $data = $this->PDO->query($statement);
-        return $data;
+        $statement = 'SELECT * FROM ' . $this->table . ' WHERE ' . $column . ' = ?';
+        $pdo = $this->PDO->getPDO();
+        $response = $pdo->prepare($statement);
+        $response->execute(array($value));
+        return $response->fetch();
     }
 
     //ALIASES

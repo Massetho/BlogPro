@@ -13,7 +13,7 @@ CREATE TABLE admin (
   email VARCHAR(255) NOT NULL,
   phone INT(10) NOT NULL,
   password VARCHAR(255) NOT NULL,
-  access_level VARCHAR(45) NOT NULL DEFAULT "commentator",
+  access_level VARCHAR(45) NOT NULL DEFAULT 0,
   PRIMARY KEY (id_admin),
   UNIQUE (email),
   UNIQUE (phone),
@@ -52,8 +52,8 @@ VALUES (1, 1, 'Bonjour Monde!', 'Voici mon premier article pour mon site personn
 
 CREATE TABLE comment (
   id_comment INT AUTO_INCREMENT,
-  comment_admin INT,
-  comment_article INT,
+  comment_admin INT NOT NULL,
+  comment_article INT NOT NULL,
   content VARCHAR(1000),
   PRIMARY KEY (id_comment),
   CONSTRAINT fk_comment_admin

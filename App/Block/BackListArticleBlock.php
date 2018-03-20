@@ -27,10 +27,4 @@ class BackListArticleBlock extends BlockAbstract
         $this->collection = $collector->getCollection('date_created', 'DESC', 5);
     }
 
-
-    public function show()
-    {
-
-    }
-
 }

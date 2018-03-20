@@ -129,4 +129,9 @@ abstract class AbstractEntity
         return $this->manager->lastId();
     }
 
+    public function getColumn($column, $value)
+    {
+        return $this->manager->get($column, $value);
+    }
+
 }
