@@ -16,6 +16,7 @@ abstract class BlockAbstract extends CoreObject
     protected $view; //path to template
     protected $entity;
     protected $block = 'content'; //name of the variable where the block will show
+    protected $message;
 
     public function __construct($controller, $entity = NULL)
     {
@@ -60,4 +61,20 @@ abstract class BlockAbstract extends CoreObject
         require_once($this->getTemplate());
         return ob_get_clean();
     }
+
+    public function getMessage()
+    {
+        return $this->message;
+    }
+
+    public function setMessage($msg)
+    {
+        if(is_string($msg)) {
+            $this->message = $msg;
+            return true;
+        }
+        else
+            return false;
+    }
+
 }

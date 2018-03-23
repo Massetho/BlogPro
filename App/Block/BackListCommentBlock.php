@@ -1,34 +1,34 @@
 <?php
 /**
- * @description : List all users
+ * @description :
  * @package : PhpStorm.
  * @Author : quent
- * @date: 15/03/2018
- * @time: 16:45
+ * @date: 22/03/2018
+ * @time: 15:22
  */
+
 namespace App\Block;
 
-use App\Model\Entity\Admin;
+use App\Model\Entity\Comment;
 
-class BackListAdminBlock extends BlockAbstract
+class BackListCommentBlock extends BlockAbstract
 {
-    protected $view = __DIR__ . '/../View/Template/ViewBackAdminList.php'; //path to template
+    protected $view = __DIR__ . '/../View/Template/ViewBackCommentList.php'; //path to template
     protected $collection;
     public $uniqid;
 
     public function __construct($controller)
     {
         parent::__construct($controller);
-        $this->listAdmin();
-
+        $this->listComment();
 
         $this->uniqid = uniqid();
         $_SESSION['authForm'] = $this->uniqid;
     }
 
-    public function listAdmin()
+    public function listComment()
     {
-        $collector = new Admin();
+        $collector = new Comment();
         $this->collection = $collector->getCollection();
     }
 }

@@ -80,3 +80,17 @@ route20:
   url: "/register"
   module: Login
   action: register
+route21:
+   url: "/comment-article-([0-9]+)"
+   module: Article
+   action: registerComment
+   vars: "id"
+route22:
+   url: "/admin-edit-comment-([0-9]+)"
+   module: EditComment
+   action: modifyValidateComment
+   vars: "id"
+route23:
+   url: "/admin-comment"
+   module: EditComment
+   action: listComment

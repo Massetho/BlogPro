@@ -55,6 +55,8 @@ CREATE TABLE comment (
   comment_admin INT NOT NULL,
   comment_article INT NOT NULL,
   content VARCHAR(1000),
+  validate INT(1) DEFAULT 0,
+  id_parent INT,
   PRIMARY KEY (id_comment),
   CONSTRAINT fk_comment_admin
     FOREIGN KEY (comment_admin)
@@ -62,4 +64,7 @@ CREATE TABLE comment (
   CONSTRAINT fk_comment_article
     FOREIGN KEY (comment_article)
     REFERENCES article(id_article),
+  CONSTRAINT fk_id_parent
+    FOREIGN KEY (id_parent)
+    REFERENCES comment(id_comment)
 );

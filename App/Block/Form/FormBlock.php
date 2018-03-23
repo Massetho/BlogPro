@@ -18,7 +18,6 @@ abstract class FormBlock extends BlockAbstract
     protected $fields = [];
     protected $entity;
     protected $uniqid;
-    protected $message;
 
     /**
      * FormBlock constructor.
@@ -57,21 +56,6 @@ abstract class FormBlock extends BlockAbstract
         }
 
         return $view;
-    }
-
-    public function getMessage()
-    {
-        return $this->message;
-    }
-
-    public function setMessage($msg)
-    {
-        if(is_string($msg)) {
-            $this->message = $msg;
-            return true;
-        }
-        else
-            return false;
     }
 
     abstract public function build();

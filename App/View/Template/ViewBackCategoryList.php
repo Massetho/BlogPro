@@ -1,4 +1,4 @@
-<section class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
+<section class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
     <h3>Categories</h3>
     <div class="clearfix"></div>
 
@@ -27,4 +27,7 @@
         </tbody>
     </table>
     <!-- tbody -->
+    <div class="clearfix"></div>
+
+    <p><a href="/admin-create-category"><button type="button" class="btn btn-info">New Category</button></a></p>
 </section>

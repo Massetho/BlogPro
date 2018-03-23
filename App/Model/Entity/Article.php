@@ -14,6 +14,7 @@ use \App\Model\Manager\ArticleManager;
 class Article extends AbstractEntity
 {
     public $excerpt;
+    public $comments;
 
     public function __construct($data = NULL)
     {

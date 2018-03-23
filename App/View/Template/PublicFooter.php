@@ -10,7 +10,8 @@
     <ul>
         <li><a href="/" title="Home">Home</a></li>
         <li><a href="<?= $this->getUrl($this->getController(), 'index', array(), 'Article'); ?>" title="Blog">Blog</a></li>
-        <li><a href="<?= $this->getUrl($this->getController(), 'login', array(), 'Login'); ?>" title="Blog">Admin</a></li>
+        <li><a href="<?= $this->getUrl($this->getController(), 'login', array(), 'Login'); ?>" title="Blog">Login</a></li>
+        <li><a href="<?= $this->getUrl($this->getController(), 'register', array(), 'Login'); ?>" title="Blog">Register</a></li>
     </ul>
 </nav>
 
