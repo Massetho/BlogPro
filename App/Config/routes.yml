@@ -74,7 +74,7 @@ route18:
 route19:
   url: "/admin-delete-admin-([0-9]+)"
   module: EditAdmin
-  action: deleteAdmin
+  action: deleteUser
   vars: "id"
 route20:
   url: "/register"
@@ -94,3 +94,8 @@ route23:
    url: "/admin-comment"
    module: EditComment
    action: listComment
+route24:
+   url: "/admin-delete-comment-([0-9]+)"
+   module: EditComment
+   action: deleteComment
+   vars: "id"

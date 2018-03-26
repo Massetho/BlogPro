@@ -52,3 +52,18 @@ function verifForm(f)
         return false;
     }
 }
+
+function verifRegisterForm(f)
+{
+    var firstnameOk = verifField(f.firstname);
+    var lastnameOk = verifField(f.lastname);
+    var mailOk = verifMail(f.email);
+
+    if(firstnameOk && lastnameOk && mailOk)
+        return true;
+    else
+    {
+        alert("Register form not correctly completed.");
+        return false;
+    }
+}

@@ -11,6 +11,8 @@ namespace App\Block\Form;
 
 class RegisterFormBlock extends FormBlock
 {
+    protected $view = __DIR__ . '/../../View/Template/ViewRegisterForm.php';
+
     public function build()
     {
         $this->addField(new StringField([

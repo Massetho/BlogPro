@@ -46,5 +46,15 @@ class ControllerEditComment extends ControllerBackend
         $this->listComment();
     }
 
+    public function deleteComment()
+    {
+        if (!empty($this->vars['id']))
+        {
+            $comment = new Comment();
+            $comment->delete($this->vars['id']);
+        }
+        $this->listComment();
+    }
+
 }
 

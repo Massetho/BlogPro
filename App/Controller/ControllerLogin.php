@@ -51,20 +51,23 @@ class ControllerLogin extends ControllerAbstract {
             $response->redirect('http://blogpro.test/admin-dashboard');
         }
 
-        else {
-
-            $page = new Page();
-            $page->setLayout(__DIR__ . '/../View/Layout/loginLayout.php');
-
-            //Creating blocks
-            array_map(function ($block) use ($page) {
-                $className = 'App\\Block\\' . ucfirst($block) . 'Block';
-                $page->addBlock(new $className($this));
-            }, ['login']);
-
+        elseif (Admin::isAuthenticated() == _USER_ADMIN_)
+        {
             $response = new Response();
-            $response->setBody($page->render())->send();
+            $response->redirect('http://blogpro.test/');
         }
+
+        $page = new Page();
+        $page->setLayout(__DIR__ . '/../View/Layout/loginLayout.php');
+
+        //Creating blocks
+        array_map(function ($block) use ($page) {
+            $className = 'App\\Block\\' . ucfirst($block) . 'Block';
+            $page->addBlock(new $className($this));
+        }, ['login']);
+
+        $response = new Response();
+        $response->setBody($page->render())->send();
     }
 
     public function register()

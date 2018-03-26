@@ -45,7 +45,7 @@
 
                     </form></td>
 
-                <td><a href="<?= $this->getUrl($this->getController(), 'deleteComment', array(urlencode($comment->getId_comment()))); ?>" onclick="return confirm('Are you sure you want to delete this article ?')"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                <td><a href="<?= $this->getUrl($this->getController(), 'deleteComment', array(urlencode($comment->getId_comment()))); ?>" onclick="return confirm('Are you sure you want to delete this comment ?')"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
             </tr>
         <?php endforeach; ?>
         </tbody>

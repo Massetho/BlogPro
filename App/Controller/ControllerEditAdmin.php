@@ -18,6 +18,7 @@ use \SendGrid;
 
 class ControllerEditAdmin extends ControllerBackend
 {
+    //TODO : delete functions & javascript verification on forms
 
     public function saveAdmin()
     {
@@ -121,6 +122,16 @@ class ControllerEditAdmin extends ControllerBackend
             }
         }
 
+        $this->listAdmin();
+    }
+
+    public function deleteUser()
+    {
+        if (!empty($this->vars['id']))
+        {
+            $user = new Admin();
+            $user->delete($this->vars['id']);
+        }
         $this->listAdmin();
     }
 
