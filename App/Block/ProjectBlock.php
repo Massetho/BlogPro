@@ -6,6 +6,7 @@
  * Time: 16:25
  */
 namespace App\Block;
+
 use App\Model\Entity\Project;
 
 class ProjectBlock extends BlockAbstract

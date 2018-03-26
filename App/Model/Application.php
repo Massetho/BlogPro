@@ -6,9 +6,11 @@
  */
 
 namespace App\Model;
+
 use Symfony\Component\Yaml\Yaml;
 
-class Application {
+class Application
+{
     protected $request;
     protected $response;
 
@@ -31,13 +33,11 @@ class Application {
         $routes = Yaml::parse(file_get_contents(__DIR__ . '/../Config/routes.yml'));
 
         // We read every routes
-        foreach ($routes as $route)
-        {
+        foreach ($routes as $route) {
             $vars = [''];
 
             // We check if there are variables in the URL.
-            if (isset($route['vars']) && $route['vars'])
-            {
+            if (isset($route['vars']) && $route['vars']) {
                 $vars = explode(',', $route['vars']);
             }
 
@@ -45,15 +45,11 @@ class Application {
             $router->addRoute(new Route($route['url'], $route['module'], $route['action'], $vars));
         }
 
-        try
-        {
+        try {
             //We retrieve the route matching the URL
             $matchedRoute = $router->getRoute($this->request->requestURI());
-        }
-        catch (MissingRouteException $e)
-        {
-            if ($e->getCode() == Router::NO_ROUTE)
-            {
+        } catch (MissingRouteException $e) {
+            if ($e->getCode() == Router::NO_ROUTE) {
                 // If no route matches, run 404 error function
                 $this->response->redirect404();
                 exit;
@@ -63,12 +59,9 @@ class Application {
         // Run the controller instance and the action of the route
 
         $controllerClass = 'App\\Controller\\Controller' .$matchedRoute->module();
-        if ($matchedRoute->hasVars())
-        {
+        if ($matchedRoute->hasVars()) {
             (new $controllerClass($router, $this->request, $matchedRoute->vars()))->execute($matchedRoute->action());
-        }
-        else
-        {
+        } else {
             (new $controllerClass($router, $this->request))->execute($matchedRoute->action());
         }
     }
@@ -77,5 +70,4 @@ class Application {
     {
         return $this->getController();
     }
-
 }

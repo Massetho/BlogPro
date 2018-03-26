@@ -7,18 +7,15 @@
  */
 namespace App\Block\Form;
 
-
 class AuthField extends Field
 {
-
     public function buildWidget()
     {
         $widget = '';
 
         $widget .= '<input type="hidden" name="authForm"';
 
-        if (!empty($this->getValue()))
-        {
+        if (!empty($this->getValue())) {
             $widget .= ' value="'.htmlspecialchars($this->getValue()).'"';
         }
 

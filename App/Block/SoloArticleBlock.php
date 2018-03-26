@@ -8,6 +8,7 @@
  */
 
 namespace App\Block;
+
 use App\Model\Entity\Article;
 
 class SoloArticleBlock extends BlockAbstract

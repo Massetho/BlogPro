@@ -7,9 +7,6 @@
  */
 namespace App\Model\Manager;
 
-
-
 class AdminManager extends AbstractManager
 {
-
 }

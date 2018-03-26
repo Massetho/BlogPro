@@ -31,20 +31,16 @@ class Route
 
     public function match($url)
     {
-        if (preg_match('`^'.$this->url.'$`', $url, $matches))
-        {
+        if (preg_match('`^'.$this->url.'$`', $url, $matches)) {
             return $matches;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
 
     public function setAction($action)
     {
-        if (is_string($action))
-        {
+        if (is_string($action)) {
             $this->action = $action;
         }
         return $this;
@@ -52,8 +48,7 @@ class Route
 
     public function setModule($module)
     {
-        if (is_string($module))
-        {
+        if (is_string($module)) {
             $this->module = $module;
         }
         return $this;
@@ -61,8 +56,7 @@ class Route
 
     public function setUrl($url)
     {
-        if (is_string($url))
-        {
+        if (is_string($url)) {
             $this->url = $url;
         }
         return $this;

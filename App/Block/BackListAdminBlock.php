@@ -32,4 +32,3 @@ class BackListAdminBlock extends BlockAbstract
         $this->collection = $collector->getCollection();
     }
 }
-

@@ -7,37 +7,30 @@
  */
 namespace App\Block\Form;
 
-
 class StringField extends Field
 {
-
     public function buildWidget()
     {
         $widget = '';
 
-        if (!empty($this->getErrorMessage()))
-        {
+        if (!empty($this->getErrorMessage())) {
             $widget .= $this->getErrorMessage().'<br />';
         }
 
         $widget .= '<label>'.$this->getLabel().'</label><input type="text" name="'.$this->getName().'"';
 
-        if (!empty($this->getValue()))
-        {
+        if (!empty($this->getValue())) {
             $widget .= ' value="'.htmlspecialchars($this->getValue()).'"';
         }
 
-        if (!empty($this->getMaxLength()))
-        {
+        if (!empty($this->getMaxLength())) {
             $widget .= ' maxlength="'.$this->getMaxLength().'"';
         }
 
-        if (!empty($this->getOnblur()))
-        {
+        if (!empty($this->getOnblur())) {
             $widget .= ' onblur="'.$this->getOnblur().'"';
         }
 
         return $widget .= ' />';
     }
-
 }

@@ -13,29 +13,18 @@ trait Call
     public function __call($methodName, $arguments)
     {
         $substr = substr($methodName, 0, 3);
-        if ($substr === "set")
-        {
+        if ($substr === "set") {
             $column = lcfirst(str_replace('set', '', $methodName));
             return $this->data[$column]= $arguments[0];
-        }
-
-        else if ($substr === "get")
-        {
+        } elseif ($substr === "get") {
             $column = lcfirst(str_replace('get', '', $methodName));
-            if (isset($this->data[$column]))
-            {
+            if (isset($this->data[$column])) {
                 return $this->data[$column];
+            } else {
+                return null;
             }
-            else
-            {
-                return NULL;
-            }
-        }
-
-        else
-        {
+        } else {
             throw new \RuntimeException("This method does not exist.");
         }
-
     }
 }

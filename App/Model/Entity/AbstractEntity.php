@@ -21,14 +21,14 @@ abstract class AbstractEntity
      * AbstractEntity constructor.
      * @param null $data
      */
-    public function __construct($data = NULL)
+    public function __construct($data = null)
     {
         $this->getManager();
-        if ($data && is_array($data))
-        {
+        if ($data && is_array($data)) {
             $this->data = $data;
-            if (!empty($data['id']))
+            if (!empty($data['id'])) {
                 $this->data = $this->manager->dataById($data['id']);
+            }
         }
     }
 
@@ -50,39 +50,31 @@ abstract class AbstractEntity
     public function __call($methodName, $arguments)
     {
         $substr = substr($methodName, 0, 3);
-        if ($substr === "set")
-        {
+        if ($substr === "set") {
             $column = lcfirst(str_replace('set', '', $methodName));
             return $this->data[$column]= $arguments[0];
-        }
-
-        else if ($substr === "get")
-        {
+        } elseif ($substr === "get") {
             $column = lcfirst(str_replace('get', '', $methodName));
-            if (isset($this->data[$column]))
-            {
+            if (isset($this->data[$column])) {
                 return $this->data[$column];
+            } else {
+                return null;
             }
-            else
-            {
-                return NULL;
-            }
-        }
-
-        else
-        {
+        } else {
             throw new \RuntimeException("This method does not exist.");
         }
-
     }
 
     //DATE MANAGEMENT
     public function getFormatedDate()
     {
-        $dayFormatter = new \IntlDateFormatter('fr_FR',\IntlDateFormatter::FULL,
-            NULL,
+        $dayFormatter = new \IntlDateFormatter(
+            'fr_FR',
+            \IntlDateFormatter::FULL,
+            null,
             'Europe/Paris',
-            \IntlDateFormatter::GREGORIAN );
+            \IntlDateFormatter::GREGORIAN
+        );
         return $dayFormatter;
     }
 
@@ -119,7 +111,7 @@ abstract class AbstractEntity
         return $this->data = $this->manager->dataById($id);
     }
 
-    public function getCollection($orderby = NULL, $sort = 'ASC', $limit = '0')
+    public function getCollection($orderby = null, $sort = 'ASC', $limit = '0')
     {
         return $this->manager->getCollection($orderby, $sort, $limit);
     }
@@ -133,5 +125,4 @@ abstract class AbstractEntity
     {
         return $this->manager->get($column, $value, $column2, $value2);
     }
-
 }

@@ -6,13 +6,13 @@
  * Time: 16:13
  */
 namespace App\Controller;
+
 use App\Model\Entity\Article;
 use App\Model\Page;
 use App\Model\Response;
 
 class ControllerPortfolio extends ControllerAbstract
 {
-
     public function index()
     {
         $page = $this->page;

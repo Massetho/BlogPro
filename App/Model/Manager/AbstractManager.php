@@ -22,16 +22,17 @@ abstract class AbstractManager
     public function __construct()
     {
         $this->PDO = Database::getInstance();
-        $this->className = str_replace(array('App\Model\Manager\\','Manager'), array('', ''),static::class);
+        $this->className = str_replace(array('App\Model\Manager\\','Manager'), array('', ''), static::class);
         $this->table = lcfirst($this->className);
         $this->entityPath = 'App\Model\Entity\\'. $this->className;
     }
 
     //Formating function for SQL requests preparation
-    public function placeholders($text, $count=0, $separator=","){
+    public function placeholders($text, $count=0, $separator=",")
+    {
         $result = array();
-        if($count > 0){
-            for($x=0; $x<$count; $x++){
+        if ($count > 0) {
+            for ($x=0; $x<$count; $x++) {
                 $result[] = $text;
             }
         }
@@ -45,14 +46,12 @@ abstract class AbstractManager
      */
     public function save(AbstractEntity $obj)
     {
-
         $columns = implode(',', array_keys($obj->getData()));
         $fields = array_values($obj->getData());
         $question_marks = '(' . $this->placeholders('?', sizeof($obj->getData())) . ')';
 
         $update = '';
-        foreach (array_keys($obj->getData()) as $col)
-        {
+        foreach (array_keys($obj->getData()) as $col) {
             $update .= " $col = VALUES($col),";
         }
         $update = trim($update, ",");
@@ -66,20 +65,18 @@ abstract class AbstractManager
 
         try {
             return $stmt->execute($fields);
-        } catch (PDOException $e){
+        } catch (PDOException $e) {
+            //TODO loguer l'erreur dans un fichier
             echo $e->getMessage();
             return false;
         }
     }
 
-    public function getCollection($orderby = NULL, $sort = 'ASC', $limit = '0')
+    public function getCollection($orderby = null, $sort = 'ASC', $limit = '0')
     {
-        if ($orderby !== NULL)
-        {
+        if ($orderby !== null) {
             $statement = 'SELECT * FROM '. $this->table . ' ORDER BY '. $orderby .' '. $sort . ' LIMIT ' . $limit;
-        }
-        else
-        {
+        } else {
             $statement = 'SELECT * FROM '. $this->table;
         }
 
@@ -87,8 +84,7 @@ abstract class AbstractManager
 
         //Transform results into usable objects.
         $collection=[];
-        foreach ($tables as $x =>$item)
-        {
+        foreach ($tables as $x =>$item) {
             $collection[$x] = new $this->entityPath($item);
         }
 
@@ -130,23 +126,26 @@ abstract class AbstractManager
 
     public function get($column, $value, $column2 = null, $value2 = null)
     {
-        if ($column2 === null)
+        if ($column2 === null) {
             $statement = 'SELECT * FROM ' . $this->table . ' WHERE ' . $column . ' = ?';
-        else
+        } else {
             $statement = 'SELECT * FROM ' . $this->table . ' WHERE ' . $column . ' = ? AND ' . $column2 .' = ?' ;
+        }
 
         $pdo = $this->PDO->getPDO();
         $response = $pdo->prepare($statement);
-        if ($value2 === null)
+        if ($value2 === null) {
             $response->execute(array($value));
-        else
+        } else {
             $response->execute(array($value, $value2));
+        }
 
         $data = $response->fetchAll();
-        if ((count($data) > 1) || (count($data) == 0))
+        if ((count($data) > 1) || (count($data) == 0)) {
             return $data;
-        elseif ((count($data) == 1))
+        } elseif ((count($data) == 1)) {
             return $data[0];
+        }
     }
 
     //ALIASES

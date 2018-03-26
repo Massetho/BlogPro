@@ -7,7 +7,6 @@
  */
 namespace App\Model;
 
-
 class Router
 {
     protected $routes = [];
@@ -16,31 +15,25 @@ class Router
 
     public function addRoute(Route $route)
     {
-        if (!in_array($route, $this->routes))
-        {
+        if (!in_array($route, $this->routes)) {
             $this->routes[] = $route;
         }
     }
 
     public function getRoute($url)
     {
-        foreach ($this->routes as $route)
-        {
+        foreach ($this->routes as $route) {
             // If the route match the URL
-            if (($varsValues = $route->match($url)) !== false)
-            {
+            if (($varsValues = $route->match($url)) !== false) {
                 // If it has variables
-                if ($route->hasVars())
-                {
+                if ($route->hasVars()) {
                     $varsNames = $route->varsNames();
                     $listVars = [];
 
                     // We create a new table (key = variable name, value = its value)
-                    foreach ($varsValues as $key => $match)
-                    {
+                    foreach ($varsValues as $key => $match) {
                         // The first value contain all the string captured
-                        if ($key !== 0)
-                        {
+                        if ($key !== 0) {
                             $listVars[$varsNames[$key - 1]] = $match;
                         }
                     }

@@ -41,10 +41,8 @@ class ControllerEditAdmin extends ControllerBackend
     {
         if ($this->request->postExists('authForm')) {
             if ($this->authFormVerify()) {
-
                 if (($this->request->postData('password') !== '') && ($this->request->postData('password') === $this->request->postData('repeatPassword'))) {
-                    if(!$this->saveAdmin())
-                    {
+                    if (!$this->saveAdmin()) {
                         $response = new Response();
                         $response->redirect500();
                     }
@@ -55,10 +53,10 @@ class ControllerEditAdmin extends ControllerBackend
             }
         }
 
-        if($this->request->sessionExists('idAdmin')) {
+        if ($this->request->sessionExists('idAdmin')) {
             $data = array('id' => $this->request->sessionData('idAdmin'));
             $page = $this->page;
-            $page->setLayout( __DIR__ . '/../View/Layout/backLayout.php');
+            $page->setLayout(__DIR__ . '/../View/Layout/backLayout.php');
 
             //Creating blocks
 
@@ -67,8 +65,7 @@ class ControllerEditAdmin extends ControllerBackend
 
             $response = new Response();
             $response->setBody($page->render())->send();
-        }
-        else {
+        } else {
             $response = new Response();
             $response->redirect500();
         }
@@ -77,7 +74,7 @@ class ControllerEditAdmin extends ControllerBackend
     public function listAdmin()
     {
         $page = $this->page;
-        $page->setLayout( __DIR__ . '/../View/Layout/backLayout.php');
+        $page->setLayout(__DIR__ . '/../View/Layout/backLayout.php');
         $page->addBlock(new BackListAdminBlock($this));
         $page->addBlock(new BackHeaderBlock($this));
         $response = new Response();
@@ -86,10 +83,8 @@ class ControllerEditAdmin extends ControllerBackend
 
     public function modifyAdminLevel()
     {
-        if ($this->authFormVerify())
-        {
-            if ($this->request->postExists('access_level'))
-            {
+        if ($this->authFormVerify()) {
+            if ($this->request->postExists('access_level')) {
                 if (!empty($this->vars['id'])) {
                     $admin = new Admin(array('id' => $this->vars['id']));
                     $admin->setAccess_level($this->request->postData('access_level', FILTER_SANITIZE_NUMBER_INT));
@@ -98,14 +93,16 @@ class ControllerEditAdmin extends ControllerBackend
                         $response->redirect500();
                     }
                     $msg = '';
-                    if ($this->request->postData('access_level', FILTER_SANITIZE_NUMBER_INT) == 0)
+                    if ($this->request->postData('access_level', FILTER_SANITIZE_NUMBER_INT) == 0) {
                         $msg = 'Your account as been deactivated by admin. You cannot write comments on BlogPro';
-                    if ($this->request->postData('access_level', FILTER_SANITIZE_NUMBER_INT) == 1)
+                    }
+                    if ($this->request->postData('access_level', FILTER_SANITIZE_NUMBER_INT) == 1) {
                         $msg = 'Your account as been activated by admin. Now you can write comments on BlogPro.';
-                    if ($this->request->postData('access_level', FILTER_SANITIZE_NUMBER_INT) == 2)
+                    }
+                    if ($this->request->postData('access_level', FILTER_SANITIZE_NUMBER_INT) == 2) {
                         $msg = 'Your account as been promoted to admin. Now you can access BlogPro Back office.';
-                    if ($msg != '')
-                    {
+                    }
+                    if ($msg != '') {
                         $toMail = $admin->getEmail();
                         $toName = $admin->getFirstname() . ' ' . $admin->getLastname();
 
@@ -127,13 +124,10 @@ class ControllerEditAdmin extends ControllerBackend
 
     public function deleteUser()
     {
-        if (!empty($this->vars['id']))
-        {
+        if (!empty($this->vars['id'])) {
             $user = new Admin();
             $user->delete($this->vars['id']);
         }
         $this->listAdmin();
     }
-
 }
-

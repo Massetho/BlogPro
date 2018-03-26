@@ -7,27 +7,24 @@
  */
 
 namespace App\Model;
+
 abstract class CoreObject
 {
     public function getUrl($controller, $action ='index', $vars = [], $controllerName = '')
     {
         $routes = $controller->getRouter()->getRoutes();
         //$routes = $router->getRoutes();
-        if (empty($controllerName))
+        if (empty($controllerName)) {
             $controllerName =$controller->getControllerName();
-        foreach ($routes as $route)
-        {
-            if ($route->module() === $controllerName && $route->action() === $action)
-            {
-
+        }
+        foreach ($routes as $route) {
+            if ($route->module() === $controllerName && $route->action() === $action) {
                 $url = $route->url();
-                if (!empty($vars))
-                {
+                if (!empty($vars)) {
                     $tempUrl = preg_replace('#\(.+\)#U', '%s', $url);
 
                     array_unshift($vars, $tempUrl);
                     $url = call_user_func_array('sprintf', $vars);
-
                 }
                 return $url;
             }
@@ -41,28 +38,28 @@ abstract class CoreObject
     }
 
 
-    function imagethumb( $image_src , $image_dest = NULL , $max_size = 100, $expand = FALSE, $square = FALSE )
+    public function imagethumb($image_src, $image_dest = null, $max_size = 100, $expand = false, $square = false)
     {
-        if( !file_exists($image_src) ) return FALSE;
+        if (!file_exists($image_src)) {
+            return false;
+        }
 
         // Récupère les infos de l'image
         $fileinfo = getimagesize($image_src);
-        if( !$fileinfo ) return FALSE;
+        if (!$fileinfo) {
+            return false;
+        }
 
         $width     = $fileinfo[0];
         $height    = $fileinfo[1];
         $type_mime = $fileinfo['mime'];
         $type      = str_replace('image/', '', $type_mime);
 
-        if( !$expand && max($width, $height)<=$max_size && (!$square || ($square && $width==$height) ) )
-        {
+        if (!$expand && max($width, $height)<=$max_size && (!$square || ($square && $width==$height))) {
             // L'image est plus petite que max_size
-            if($image_dest)
-            {
+            if ($image_dest) {
                 return copy($image_src, $image_dest);
-            }
-            else
-            {
+            } else {
                 header('Content-Type: '. $type_mime);
                 return (boolean) readfile($image_src);
             }
@@ -71,65 +68,57 @@ abstract class CoreObject
         // Calcule les nouvelles dimensions
         $ratio = $width / $height;
 
-        if( $square )
-        {
+        if ($square) {
             $new_width = $new_height = $max_size;
 
-            if( $ratio > 1 )
-            {
+            if ($ratio > 1) {
                 // Paysage
                 $src_y = 0;
-                $src_x = round( ($width - $height) / 2 );
+                $src_x = round(($width - $height) / 2);
 
                 $src_w = $src_h = $height;
-            }
-            else
-            {
+            } else {
                 // Portrait
                 $src_x = 0;
-                $src_y = round( ($height - $width) / 2 );
+                $src_y = round(($height - $width) / 2);
 
                 $src_w = $src_h = $width;
             }
-        }
-        else
-        {
+        } else {
             $src_x = $src_y = 0;
             $src_w = $width;
             $src_h = $height;
 
-            if ( $ratio > 1 )
-            {
+            if ($ratio > 1) {
                 // Paysage
                 $new_width  = $max_size;
-                $new_height = round( $max_size / $ratio );
-            }
-            else
-            {
+                $new_height = round($max_size / $ratio);
+            } else {
                 // Portrait
                 $new_height = $max_size;
-                $new_width  = round( $max_size * $ratio );
+                $new_width  = round($max_size * $ratio);
             }
         }
 
         // Ouvre l'image originale
         $func = 'imagecreatefrom' . $type;
-        if( !function_exists($func) ) return FALSE;
+        if (!function_exists($func)) {
+            return false;
+        }
 
         $image_src = $func($image_src);
-        $new_image = imagecreatetruecolor($new_width,$new_height);
+        $new_image = imagecreatetruecolor($new_width, $new_height);
 
         // Gestion de la transparence pour les png
-        if( $type=='png' )
-        {
-            imagealphablending($new_image,false);
-            if( function_exists('imagesavealpha') )
-                imagesavealpha($new_image,true);
+        if ($type=='png') {
+            imagealphablending($new_image, false);
+            if (function_exists('imagesavealpha')) {
+                imagesavealpha($new_image, true);
+            }
         }
 
         // Gestion de la transparence pour les gif
-        elseif( $type=='gif' && imagecolortransparent($image_src)>=0 )
-        {
+        elseif ($type=='gif' && imagecolortransparent($image_src)>=0) {
             $transparent_index = imagecolortransparent($image_src);
             $transparent_color = imagecolorsforindex($image_src, $transparent_index);
             $transparent_index = imagecolorallocate($new_image, $transparent_color['red'], $transparent_color['green'], $transparent_color['blue']);
@@ -139,19 +128,23 @@ abstract class CoreObject
 
         // Redimensionnement de l'image
         imagecopyresampled(
-            $new_image, $image_src,
-            0, 0, $src_x, $src_y,
-            $new_width, $new_height, $src_w, $src_h
+            $new_image,
+            $image_src,
+            0,
+            0,
+            $src_x,
+            $src_y,
+            $new_width,
+            $new_height,
+            $src_w,
+            $src_h
         );
 
         // Enregistrement de l'image
         $func = 'image'. $type;
-        if($image_dest)
-        {
+        if ($image_dest) {
             $func($new_image, $image_dest);
-        }
-        else
-        {
+        } else {
             header('Content-Type: '. $type_mime);
             $func($new_image);
         }
@@ -159,7 +152,6 @@ abstract class CoreObject
         // Libération de la mémoire
         imagedestroy($new_image);
 
-        return TRUE;
+        return true;
     }
-
 }

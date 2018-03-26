@@ -1,9 +1,11 @@
 <?php
 namespace App\Model;
+
 use Symfony\Component\Yaml\Yaml;
 use \PDO;
 
-class Database {
+class Database
+{
     private $dbName;
     private $dbUser;
     private $dbPassword;
@@ -17,7 +19,8 @@ class Database {
     /**
      * Database constructor.
      */
-    private function __construct() {
+    private function __construct()
+    {
         $config = Yaml::parse(file_get_contents(__DIR__ . '/../Config/database.yml'));
         $dbConfig = $config['database'];
         foreach ($dbConfig as $key => $value) {
@@ -28,9 +31,9 @@ class Database {
         $this->initPDO();
     }
 
-    public static function getInstance() {
-
-        if(is_null(self::$_instance)) {
+    public static function getInstance()
+    {
+        if (is_null(self::$_instance)) {
             self::$_instance = new Database();
         }
 
@@ -38,7 +41,8 @@ class Database {
     }
 
 
-    private function initPDO() {
+    private function initPDO()
+    {
         if (is_null($this->pdo)) {
             $dsn = $this->dbDriver . ':dbname=' . $this->dbName . ';host=' . $this->dbHost . ';port=' . $this->dbPort;
             $pdo = new PDO($dsn, $this->dbUser, $this->dbPassword);
@@ -49,7 +53,7 @@ class Database {
 
     public function pSQL($field)
     {
-    return $this->pdo->quote($field);
+        return $this->pdo->quote($field);
     }
 
     public function getPDO()
@@ -57,17 +61,20 @@ class Database {
         return $this->pdo;
     }
 
-    public function query($statement) {
-    $request = $this->pdo->query($statement);
-    $datas = $request->fetchAll(PDO::FETCH_ASSOC);
-    return $datas;
+    public function query($statement)
+    {
+        $request = $this->pdo->query($statement);
+        $datas = $request->fetchAll(PDO::FETCH_ASSOC);
+        return $datas;
     }
 
-    public function deleteQuery($statement) {
+    public function deleteQuery($statement)
+    {
         return $this->pdo->query($statement);
     }
 
-    public function objectQuery($statement) {
+    public function objectQuery($statement)
+    {
         $request = $this->pdo->query($statement);
         $collection = $request->fetchAll(PDO::FETCH_OBJ, static::className);
         return $collection;

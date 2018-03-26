@@ -15,8 +15,7 @@ class Comment extends AbstractEntity
     {
         $comments = [];
         $datas = $this->getColumn('comment_article', $idArticle, 'validate', 1);
-        foreach ($datas as $data)
-        {
+        foreach ($datas as $data) {
             $comments[] = new Comment($data);
         }
         return $comments;
@@ -26,8 +25,7 @@ class Comment extends AbstractEntity
     {
         $comments = [];
         $datas = $this->getColumn('id_parent', $this->getId_comment());
-        foreach ($datas as $data)
-        {
+        foreach ($datas as $data) {
             $comments[] = new Comment($data);
         }
         return $comments;

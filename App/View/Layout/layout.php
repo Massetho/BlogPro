@@ -44,10 +44,18 @@
         <!-- main -->
         <main role="main-inner-wrapper" class="container">
             <div class="row">
-                <?php if(!empty($content)) echo $content; ?>
-                <?php if(!empty($form)) echo $form; ?>
-                <?php if(!empty($comments)) echo $comments; ?>
-                <?php if(!empty($commentForm)) echo $commentForm; ?>
+                <?php if (!empty($content)) {
+    echo $content;
+} ?>
+                <?php if (!empty($form)) {
+    echo $form;
+} ?>
+                <?php if (!empty($comments)) {
+    echo $comments;
+} ?>
+                <?php if (!empty($commentForm)) {
+    echo $commentForm;
+} ?>
             </div>
         </main>
         <!-- main -->

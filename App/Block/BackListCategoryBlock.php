@@ -8,6 +8,7 @@
  */
 
 namespace App\Block;
+
 use App\Model\Entity\Category;
 
 class BackListCategoryBlock extends BlockAbstract
@@ -26,5 +27,4 @@ class BackListCategoryBlock extends BlockAbstract
         $collector = new Category();
         $this->collection = $collector->getCollection();
     }
-
 }
