@@ -32,4 +32,3 @@ class BackListCommentBlock extends BlockAbstract
         $this->collection = $collector->getCollection();
     }
 }
-

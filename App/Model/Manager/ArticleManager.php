@@ -13,8 +13,6 @@ use App\Model\Database;
 use App\Model\Entity\AbstractEntity;
 use App\Model\Entity\Article;
 
-
 class ArticleManager extends AbstractManager
 {
-
 }

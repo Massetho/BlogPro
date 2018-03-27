@@ -5,6 +5,7 @@
  * @package: BlogPro
  */
 namespace App\Controller;
+
 use App\Model\CoreObject;
 use App\Model\Page;
 use App\Model\Router;
@@ -36,8 +37,7 @@ abstract class ControllerAbstract extends CoreObject
     public function checkAdmin()
     {
         $auth = Admin::isAuthenticated();
-        if (Admin::isAuthenticated() >= _USER_ADMIN_)
-        {
+        if (Admin::isAuthenticated() >= _USER_ADMIN_) {
             return true;
         }
         return false;
@@ -50,8 +50,7 @@ abstract class ControllerAbstract extends CoreObject
      */
     public function execute($method)
     {
-        if (!is_callable([$this, $method]))
-        {
+        if (!is_callable([$this, $method])) {
             throw new \RuntimeException('L\'action "'.$method.'" n\'est pas définie sur ce module');
         }
 
@@ -61,23 +60,33 @@ abstract class ControllerAbstract extends CoreObject
     //Special CSRF security
     public function authFormVerify()
     {
-        if ($this->request->postExists('authForm') && ($this->request->postData('authForm') === $this->request->sessionData('authForm')))
-        {
+        if ($this->request->postExists('authForm') && ($this->request->postData('authForm') === $this->request->sessionData('authForm'))) {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
 
     public function getControllerName()
     {
-        return str_replace('App\Controller\Controller', '',static::class);
+        return str_replace('App\Controller\Controller', '', static::class);
     }
 
     public function getRouter()
     {
         return $this->router;
     }
+
+    public function writeLogs($message)
+    {
+        $urlFolder = _HOME_DIR__ . '../../logs/';
+        $filename = date("Y-m-d_H-i-s");
+
+        if ($message != "") {
+            $fp = fopen($urlFolder . $filename . '.' . 'csv', 'w');
+            fwrite($fp, $message);
+            fclose($fp);
+        }
+    }
+
 }

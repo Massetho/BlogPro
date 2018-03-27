@@ -14,13 +14,13 @@ use App\Model\Page;
 use App\Model\Response;
 use \SendGrid;
 
-class ControllerAbout extends ControllerAbstract {
-
+class ControllerAbout extends ControllerAbstract
+{
     public function index()
     {
         $page = $this->page;
         //Creating blocks
-        array_map(function($block) use($page){
+        array_map(function ($block) use ($page) {
             $className = 'App\\Block\\'.ucfirst($block) . 'Block';
             $page->addBlock(new $className($this));
         }, ['header', 'footer', 'about', 'form\ContactForm']);
@@ -31,12 +31,9 @@ class ControllerAbout extends ControllerAbstract {
 
     public function contact()
     {
-        if ($this->request->postExists('authForm'))
-        {
-            if ($this->authFormVerify())
-            {
+        if ($this->request->postExists('authForm')) {
+            if ($this->authFormVerify()) {
                 if ($this->request->postData('email', FILTER_VALIDATE_EMAIL)) {
-
                     $from = $this->request->postData('email', FILTER_VALIDATE_EMAIL);
 
                     $from = new SendGrid\Email("Contact Form", $from);
@@ -48,7 +45,6 @@ class ControllerAbout extends ControllerAbstract {
                     $sg = new \SendGrid(_SENDGRID_API_KEY_);
                     $sg->client->mail()->send()->post($mail);
                 }
-
             }
         }
 
@@ -56,4 +52,3 @@ class ControllerAbout extends ControllerAbstract {
         $response->redirect($this->getUrl($this, 'index'));
     }
 }
-

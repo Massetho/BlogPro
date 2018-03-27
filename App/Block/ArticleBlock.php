@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Block;
+
 use App\Model\Entity\Article;
 
 class ArticleBlock extends BlockAbstract

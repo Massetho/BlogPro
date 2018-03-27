@@ -37,8 +37,12 @@
 
                     <form method="post" action="<?= $this->getUrl($this->getController(), 'modifyValidateComment', array(urlencode($comment->getId_comment()))); ?>" enctype="multipart/form-data">
                         <select name="validate">
-                            <option value="0" <?php if($comment->getValidate() == 0) echo "selected" ?>>Not Published</option>
-                            <option value="1" <?php if($comment->getValidate() == 1) echo "selected" ?>>Published</option>
+                            <option value="0" <?php if ($comment->getValidate() == 0) {
+    echo "selected";
+} ?>>Not Published</option>
+                            <option value="1" <?php if ($comment->getValidate() == 1) {
+    echo "selected";
+} ?>>Published</option>
                         </select>
                         <input type="hidden" name="authForm" value="<?= $this->uniqid; ?>">
                         <input class ="btn btn-secondary" name="submit" type="submit" value="Send">

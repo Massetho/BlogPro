@@ -12,5 +12,3 @@ class HeaderBlock extends BlockAbstract
     protected $view = __DIR__ . '/../View/Template/PublicHeader.php';
     protected $block = 'header';
 }
-
-

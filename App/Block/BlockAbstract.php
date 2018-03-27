@@ -18,14 +18,12 @@ abstract class BlockAbstract extends CoreObject
     protected $block = 'content'; //name of the variable where the block will show
     protected $message;
 
-    public function __construct($controller, $entity = NULL)
+    public function __construct($controller, $entity = null)
     {
-        if ($controller)
-        {
+        if ($controller) {
             $this->controller = $controller;
         }
-        if ($entity !== NULL)
-        {
+        if ($entity !== null) {
             $this->entity = $entity;
         }
     }
@@ -69,12 +67,11 @@ abstract class BlockAbstract extends CoreObject
 
     public function setMessage($msg)
     {
-        if(is_string($msg)) {
+        if (is_string($msg)) {
             $this->message = $msg;
             return true;
-        }
-        else
+        } else {
             return false;
+        }
     }
-
 }

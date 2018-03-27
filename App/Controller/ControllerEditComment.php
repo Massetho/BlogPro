@@ -16,11 +16,10 @@ use App\Model\Response;
 
 class ControllerEditComment extends ControllerBackend
 {
-
     public function listComment()
     {
         $page = $this->page;
-        $page->setLayout( __DIR__ . '/../View/Layout/backLayout.php');
+        $page->setLayout(__DIR__ . '/../View/Layout/backLayout.php');
         $page->addBlock(new BackListCommentBlock($this));
         $page->addBlock(new BackHeaderBlock($this));
         $response = new Response();
@@ -29,10 +28,8 @@ class ControllerEditComment extends ControllerBackend
 
     public function modifyValidateComment()
     {
-        if ($this->authFormVerify())
-        {
-            if ($this->request->postExists('validate'))
-            {
+        if ($this->authFormVerify()) {
+            if ($this->request->postExists('validate')) {
                 if (!empty($this->vars['id'])) {
                     $comment = new Comment(array('id' => $this->vars['id']));
                     $comment->setValidate($this->request->postData('validate', FILTER_SANITIZE_NUMBER_INT));
@@ -48,13 +45,10 @@ class ControllerEditComment extends ControllerBackend
 
     public function deleteComment()
     {
-        if (!empty($this->vars['id']))
-        {
+        if (!empty($this->vars['id'])) {
             $comment = new Comment();
             $comment->delete($this->vars['id']);
         }
         $this->listComment();
     }
-
 }
-

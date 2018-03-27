@@ -32,9 +32,9 @@ class Response
         exit;
     }
 
-    public function setBody($content) {
-        if ($content != '')
-        {
+    public function setBody($content)
+    {
+        if ($content != '') {
             $this->body =$content;
         }
         return $this;
@@ -42,8 +42,8 @@ class Response
 
     public function send()
     {
-       echo $this->body;
-       exit;
+        echo $this->body;
+        exit;
     }
 
     public function setCookie($name, $value = '', $expire = 0, $path = null, $domain = null, $secure = false, $httpOnly = true)

@@ -28,14 +28,11 @@ class Request
         return $_SERVER['REQUEST_METHOD'];
     }
 
-    public function postData($key, $filter = NULL)
+    public function postData($key, $filter = null)
     {
-        if ($filter === NULL)
-        {
+        if ($filter === null) {
             return isset($_POST[$key]) ? htmlspecialchars($_POST[$key]) : null;
-        }
-        else
-        {
+        } else {
             return filter_input(INPUT_POST, $key, $filter);
         }
     }
@@ -54,10 +51,11 @@ class Request
     {
         return isset($_SESSION[$key]) ? $_SESSION[$key] : null;
     }
-    public function sessionSet($key = NULL, $value = NULL)
+    public function sessionSet($key = null, $value = null)
     {
-        if ($key && $value)
+        if ($key && $value) {
             $_SESSION[$key] = $value;
+        }
     }
 
     public function fileName($key)

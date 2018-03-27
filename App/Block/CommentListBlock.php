@@ -17,7 +17,7 @@ class CommentListBlock extends BlockAbstract
     protected $block = 'comments'; //name of the variable where the block will show
     protected $collection;
 
-    public function __construct($controller, $entity = NULL)
+    public function __construct($controller, $entity = null)
     {
         parent::__construct($controller, $entity);
         $this->listComments();
@@ -25,8 +25,7 @@ class CommentListBlock extends BlockAbstract
 
     public function listComments()
     {
-        if ($idArticle = $this->entity->getId_article())
-        {
+        if ($idArticle = $this->entity->getId_article()) {
             $collector = new Comment();
             $this->collection = $collector->getComments($idArticle);
         }

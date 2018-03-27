@@ -34,9 +34,15 @@
 
                 <form method="post" action="<?= $this->getUrl($this->getController(), 'modifyAdminLevel', array(urlencode($admin->getId_admin()))); ?>" enctype="multipart/form-data">
                     <select name="access_level">
-                        <option value="0" <?php if($admin->getAccess_level() == 0) echo "selected" ?>>New User</option>
-                        <option value="1" <?php if($admin->getAccess_level() == 1) echo "selected" ?>>User</option>
-                        <option value="2" <?php if($admin->getAccess_level() == 2) echo "selected" ?>>Admin</option>
+                        <option value="0" <?php if ($admin->getAccess_level() == 0) {
+    echo "selected";
+} ?>>New User</option>
+                        <option value="1" <?php if ($admin->getAccess_level() == 1) {
+    echo "selected";
+} ?>>User</option>
+                        <option value="2" <?php if ($admin->getAccess_level() == 2) {
+    echo "selected";
+} ?>>Admin</option>
                     </select>
                     <input type="hidden" name="authForm" value="<?= $this->uniqid; ?>">
                     <input class ="btn btn-secondary" name="submit" type="submit" value="Send">

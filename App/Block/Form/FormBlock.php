@@ -7,6 +7,7 @@
  * Time: 14:20
  */
 namespace App\Block\Form;
+
 use App\Block\BlockAbstract;
 use App\Model\Call;
 
@@ -24,7 +25,7 @@ abstract class FormBlock extends BlockAbstract
      * @param $controller
      * @param object $entity
      */
-    public function __construct($controller, $entity = NULL)
+    public function __construct($controller, $entity = null)
     {
         parent::__construct($controller, $entity);
         $this->uniqid = uniqid();
@@ -36,8 +37,7 @@ abstract class FormBlock extends BlockAbstract
     {
         $attr = 'get' . ucfirst($field->getName()); // We retrieve the field's name
 
-        if (!is_null($this->entity) && !empty($this->entity->$attr()))
-        {
+        if (!is_null($this->entity) && !empty($this->entity->$attr())) {
             $field->setValue($this->entity->$attr()); // We set the field's value if there is one
         }
 
@@ -50,8 +50,7 @@ abstract class FormBlock extends BlockAbstract
         $view = '';
 
         // Each field is added to the view.
-        foreach ($this->fields as $field)
-        {
+        foreach ($this->fields as $field) {
             $view .= $field->buildWidget().'<br />';
         }
 
@@ -59,5 +58,4 @@ abstract class FormBlock extends BlockAbstract
     }
 
     abstract public function build();
-
 }

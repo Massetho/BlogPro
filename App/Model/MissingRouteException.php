@@ -9,5 +9,4 @@ namespace App\Model;
 
 class MissingRouteException extends \RuntimeException
 {
-
 }

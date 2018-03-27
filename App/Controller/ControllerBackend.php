@@ -7,6 +7,7 @@
  */
 
 namespace App\Controller;
+
 use App\Model\Entity\Article;
 use App\Model\Response;
 use App\Block\BackListArticleBlock;
@@ -15,7 +16,6 @@ use App\Model\Entity\Admin;
 
 class ControllerBackend extends ControllerAbstract
 {
-
     public function __construct($router, $request, $vars)
     {
         parent::__construct($router, $request, $vars);
@@ -26,8 +26,7 @@ class ControllerBackend extends ControllerAbstract
     {
         //if (Admin::isAuthenticated() !== _AUTH_ADMIN_)
         $adm =Admin::isAuthenticated();
-        if ($adm != _AUTH_ADMIN_)
-        {
+        if ($adm != _AUTH_ADMIN_) {
             $response = new Response();
             $response->redirect('https://blogpro.test/admin');
         }
@@ -36,7 +35,7 @@ class ControllerBackend extends ControllerAbstract
     public function listArticle()
     {
         $page = $this->page;
-        $page->setLayout( __DIR__ . '/../View/Layout/backLayout.php');
+        $page->setLayout(__DIR__ . '/../View/Layout/backLayout.php');
         $page->addBlock(new BackListArticleBlock($this));
         $page->addBlock(new BackHeaderBlock($this));
         $response = new Response();
@@ -45,8 +44,7 @@ class ControllerBackend extends ControllerAbstract
 
     public function deleteArticle()
     {
-        if (!empty($this->vars['id']))
-        {
+        if (!empty($this->vars['id'])) {
             $article = new Article();
             $article->delete($this->vars['id']);
         }
@@ -60,35 +58,45 @@ class ControllerBackend extends ControllerAbstract
         $response->redirect('https://blogpro.test');
     }
 
-    function uploadImage($folder = '',
+    public function uploadImage(
+        $folder = '',
                          $index = 'image',
                          $destination = _IMG_FILE_,
                          $maxsize = 1048576,
-                         $extensions = array('jpg', 'jpeg', 'png'))
-    {
+                         $extensions = array('jpg', 'jpeg', 'png')
+    ) {
         //Test1: file exist ?
-        if (!isset($_FILES[$index]) OR $_FILES[$index]['error'] > 0) return FALSE;
+        if (!isset($_FILES[$index]) or $_FILES[$index]['error'] > 0) {
+            return false;
+        }
         //Test2: under max size ?
-        if ($maxsize !== FALSE AND $_FILES[$index]['size'] > $maxsize) return FALSE;
+        if ($maxsize !== false and $_FILES[$index]['size'] > $maxsize) {
+            return false;
+        }
         //Test3: good extension ?
-        $ext = substr(strrchr($_FILES[$index]['name'],'.'),1);
-        if ($extensions !== FALSE AND !in_array($ext,$extensions)) return FALSE;
+        $ext = substr(strrchr($_FILES[$index]['name'], '.'), 1);
+        if ($extensions !== false and !in_array($ext, $extensions)) {
+            return false;
+        }
         //Test4: is image ?
-        if (exif_imagetype($_FILES[$index]['tmp_name']) === FALSE) return FALSE;
+        if (exif_imagetype($_FILES[$index]['tmp_name']) === false) {
+            return false;
+        }
 
         //Directory management
         $cwd = getcwd();
         $imagefile = $cwd.$destination.$folder;
         $thumbfile = $imagefile.'/thumbnail/';
-        if (!file_exists($thumbfile))
-        {
+        if (!file_exists($thumbfile)) {
             mkdir($thumbfile, 0755, true);
         }
 
         $filename = $imagefile.'/'.$_FILES[$index]['name'];
-        if (move_uploaded_file($_FILES[$index]['tmp_name'],$filename) === FALSE) return FALSE;
+        if (move_uploaded_file($_FILES[$index]['tmp_name'], $filename) === false) {
+            return false;
+        }
         //Thumbnail
         $filenameThumb = $thumbfile.$_FILES[$index]['name'];
-        return $this->imagethumb($filename, $filenameThumb, 560 );
+        return $this->imagethumb($filename, $filenameThumb, 560);
     }
 }

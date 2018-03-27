@@ -7,6 +7,7 @@
  */
 
 namespace App\Block;
+
 use App\Model\Entity\Article;
 use App\Controller\ControllerEditArticle;
 
@@ -26,5 +27,4 @@ class BackListArticleBlock extends BlockAbstract
         $collector = new Article();
         $this->collection = $collector->getCollection('date_created', 'DESC', 5);
     }
-
 }
