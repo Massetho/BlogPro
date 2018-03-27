@@ -76,4 +76,17 @@ abstract class ControllerAbstract extends CoreObject
     {
         return $this->router;
     }
+
+    public function writeLogs($message)
+    {
+        $urlFolder = _HOME_DIR__ . '../../logs/';
+        $filename = date("Y-m-d_H-i-s");
+
+        if ($message != "") {
+            $fp = fopen($urlFolder . $filename . '.' . 'csv', 'w');
+            fwrite($fp, $message);
+            fclose($fp);
+        }
+    }
+
 }
