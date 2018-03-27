@@ -6,10 +6,13 @@
  * @date: 05/02/2018
  * @time: 15:17
  */
+
 namespace App\Controller;
+
 use App\Block\Form\ContactFormBlock;
 use App\Model\Page;
 use App\Model\Response;
+use \SendGrid;
 
 class ControllerAbout extends ControllerAbstract {
 
@@ -32,15 +35,20 @@ class ControllerAbout extends ControllerAbstract {
         {
             if ($this->authFormVerify())
             {
-                $mail = $this->request->postData('email', FILTER_VALIDATE_EMAIL);
-                $message = $this->request->postData('message', FILTER_SANITIZE_STRING);
-                $headers ='From: ' . "$mail\r\n" .
-                    'Reply-To: ' . "$mail\r\n" .
-                    'X-Mailer: PHP/' . phpversion();
-                mail(_CONTACT_MAIL_,
-                    "Contact Form from BlogPro",
-                    $message,
-                    $headers);
+                if ($this->request->postData('email', FILTER_VALIDATE_EMAIL)) {
+
+                    $from = $this->request->postData('email', FILTER_VALIDATE_EMAIL);
+
+                    $from = new SendGrid\Email("Contact Form", $from);
+                    $subject = "Contact Form from BlogPro";
+                    $to = new SendGrid\Email("BlogPro", _CONTACT_MAIL_);
+                    $content = new SendGrid\Content("text/plain", $this->request->postData('message', FILTER_SANITIZE_STRING));
+                    $mail = new SendGrid\Mail($from, $subject, $to, $content);
+
+                    $sg = new \SendGrid(_SENDGRID_API_KEY_);
+                    $sg->client->mail()->send()->post($mail);
+                }
+
             }
         }
 
@@ -48,3 +56,4 @@ class ControllerAbout extends ControllerAbstract {
         $response->redirect($this->getUrl($this, 'index'));
     }
 }
+

@@ -31,7 +31,7 @@
     <link href="css/effects/component.css"  rel="stylesheet" type="text/css" >
 
 </head>
-<body>
+<body style="padding-top: 70px">
 
 <!-- header -->
 <header>
@@ -56,6 +56,7 @@
 <script src="js/jquery.min.js" type="text/javascript"></script>
 
 <!-- custom -->
+<script src="js/controls/formControl.js" type="text/javascript"></script>
 
 <script src="js/nav.js" type="text/javascript"></script>
 

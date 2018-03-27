@@ -68,6 +68,7 @@ abstract class AbstractManager
             return $stmt->execute($fields);
         } catch (PDOException $e){
             echo $e->getMessage();
+            return false;
         }
     }
 
@@ -127,11 +128,25 @@ abstract class AbstractManager
         return $this->PDO->deleteQuery($statement);
     }
 
-    public function get($column, $value)
+    public function get($column, $value, $column2 = null, $value2 = null)
     {
-        $statement = 'SELECT * FROM ' . $this->table . ' WHERE ' . $column . ' = ' . $value;
-        $data = $this->PDO->query($statement);
-        return $data;
+        if ($column2 === null)
+            $statement = 'SELECT * FROM ' . $this->table . ' WHERE ' . $column . ' = ?';
+        else
+            $statement = 'SELECT * FROM ' . $this->table . ' WHERE ' . $column . ' = ? AND ' . $column2 .' = ?' ;
+
+        $pdo = $this->PDO->getPDO();
+        $response = $pdo->prepare($statement);
+        if ($value2 === null)
+            $response->execute(array($value));
+        else
+            $response->execute(array($value, $value2));
+
+        $data = $response->fetchAll();
+        if ((count($data) > 1) || (count($data) == 0))
+            return $data;
+        elseif ((count($data) == 1))
+            return $data[0];
     }
 
     //ALIASES

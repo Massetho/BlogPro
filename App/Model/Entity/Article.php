@@ -1,17 +1,20 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: quent
- * Date: 25/10/2017
- * Time: 16:37
- */
 
 namespace App\Model\Entity;
+
 use \App\Model\Manager\ArticleManager;
 
+/**
+ * Class Article
+ * @package App\Model\Entity
+ *
+ * @method string getTitle()
+ * @method setTitle($title)
+ */
 class Article extends AbstractEntity
 {
     public $excerpt;
+    public $comments;
 
     public function __construct($data = NULL)
     {

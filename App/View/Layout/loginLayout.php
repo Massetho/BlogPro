@@ -48,6 +48,8 @@
 
 <!-- custom -->
 
+<script src="js/controls/formControl.js" type="text/javascript"></script>
+
 <script src="js/nav.js" type="text/javascript"></script>
 
 <script src="js/custom.js" type="text/javascript"></script>

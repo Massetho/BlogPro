@@ -13,8 +13,9 @@
  * E_ALL means all errors
  *
  */
-const _ERROR_REPORTING_ = E_ALL;
-const _HOME_DIR_ = '/home/vagrant/blogpro/homestead/public';
+const _ERROR_REPORTING_ = 0;
+const _HOME_DIR_ = '/blogpro/homestead/public';
 const _IMG_FILE_ = '/images/';
 const _IMG_ARTICLE_FILE_ = 'article-';
-const _CONTACT_MAIL_ = "quentin_thomasset@hotmail.fr";
+const _CONTACT_MAIL_ = "example@yourmail.com";
+const _SENDGRID_API_KEY_ = ""; // ENTER HERE YOUR SENDGRID API KEY

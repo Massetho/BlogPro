@@ -10,6 +10,7 @@ use App\Model\Page;
 use App\Model\Router;
 use App\Model\Request;
 use App\Model\Response;
+use App\Model\Entity\Admin;
 
 abstract class ControllerAbstract extends CoreObject
 {
@@ -31,6 +32,17 @@ abstract class ControllerAbstract extends CoreObject
         $this->request = $request;
         $this->vars = $vars;
     }
+
+    public function checkAdmin()
+    {
+        $auth = Admin::isAuthenticated();
+        if (Admin::isAuthenticated() >= _USER_ADMIN_)
+        {
+            return true;
+        }
+        return false;
+    }
+
 
     /**
      * @param $method

@@ -1,4 +1,4 @@
-<section class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
+<section class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
 <h1> </h1>
 <div class="clearfix"></div>
 <h2>Articles</h2>
