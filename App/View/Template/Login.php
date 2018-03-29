@@ -24,6 +24,7 @@
                             <div id="loginErrorMsg" class="alert alert-error hide">Wrong mail or password</div>
 
                             <button type="submit" class="btn btn-success btn-block">Login</button>
+                            <a href="<?= $this->getUrl($this->getController(), 'forgotPassword', array()); ?>" class="btn btn-default btn-block">Forgot password ?</a>
                         </form>
                     </div>
                 </div>

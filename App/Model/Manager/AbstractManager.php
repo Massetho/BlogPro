@@ -11,6 +11,7 @@ namespace App\Model\Manager;
 
 use App\Model\Database;
 use App\Model\Entity\AbstractEntity;
+use \PDO;
 
 abstract class AbstractManager
 {
@@ -140,7 +141,7 @@ abstract class AbstractManager
             $response->execute(array($value, $value2));
         }
 
-        $data = $response->fetchAll();
+        $data = $response->fetchAll(PDO::FETCH_ASSOC);
         if ((count($data) > 1) || (count($data) == 0)) {
             return $data;
         } elseif ((count($data) == 1)) {

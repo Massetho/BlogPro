@@ -44,7 +44,7 @@ class ControllerArticle extends ControllerAbstract
             if ($this->checkAdmin()) {
                 $page->addBlock(new CommentFormBlock($this, new Article($this->vars)));
             } else {
-                $msg = '<p>Please <b><a href="'.$this->getUrl($this, 'register', array(), 'Login').'">register</a></b> to write a comment.</p>';
+                $msg = '<p>Please <b><a href="'.$this->getUrl($this, 'login', array(), 'Login').'">login</a></b> or <b><a href="'.$this->getUrl($this, 'register', array(), 'Login').'">register</a></b> to write a comment.</p>';
                 $commentBlock->setMessage($msg);
             }
 
