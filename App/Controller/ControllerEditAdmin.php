@@ -18,8 +18,6 @@ use \SendGrid;
 
 class ControllerEditAdmin extends ControllerBackend
 {
-    //TODO : delete functions & javascript verification on forms
-
     public function saveAdmin()
     {
         $password = $this->request->postData('password');

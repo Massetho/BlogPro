@@ -14,6 +14,7 @@ CREATE TABLE admin (
   phone INT(10) NOT NULL,
   password VARCHAR(255) NOT NULL,
   access_level VARCHAR(45) NOT NULL DEFAULT 0,
+  token VARCHAR(200) DEFAULT NULL,
   PRIMARY KEY (id_admin),
   UNIQUE (email),
   UNIQUE (phone),
@@ -21,7 +22,7 @@ CREATE TABLE admin (
 );
 
 INSERT INTO admin (id_admin, firstname, lastname, date_created, email, phone, password)
-VALUES (1, 'Admin', 'BlogPro', NOW(), 'admin@blopro.com', 0612716084, '$2y$10$eKBqFzznilmFbKYxbKtCduHLuxKcIUS2TqG750C10EsKcF54BmWom');
+VALUES (1, 'Admin', 'BlogPro', NOW(), 'admin@blopro.com', 0600000000, '$2y$10$eKBqFzznilmFbKYxbKtCduHLuxKcIUS2TqG750C10EsKcF54BmWom');
 
 CREATE TABLE category (
   id_category INT AUTO_INCREMENT,

@@ -1,4 +1,6 @@
 <div class="contat-from-wrapper">
+    <h2>Register</h2>
+    <div class="clearfix"></div>
 
     <div id="message"><h5><i><?php if ($this->getMessage()) {
     echo $this->getMessage();

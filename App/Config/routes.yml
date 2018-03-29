@@ -99,3 +99,12 @@ route24:
    module: EditComment
    action: deleteComment
    vars: "id"
+route25:
+   url: "/forgot-password"
+   module: Login
+   action: forgotPassword
+route26:
+   url: "/new-password-([0-9]+)-(.+)"
+   module: Login
+   action: newPassword
+   vars: "id,token"
